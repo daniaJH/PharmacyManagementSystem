@@ -89,7 +89,7 @@
                               <Button fx:id="stockTakingButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #edfaff;" text="Stock Taking" />
                               <Button fx:id="employeesButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Employees" />
                               <Button fx:id="manufacturingCompanyButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handlecompanyOpen" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Manufacturing Company" />
-                              <Button fx:id="customersButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0" style="-fx-background-color: #edfaff;" text="Customers" />
+                              <Button fx:id="customersButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleopencustbored" prefHeight="26.0" prefWidth="224.0" style="-fx-background-color: #edfaff;" text="Customers" />
                               <Button fx:id="reportsButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="220.0" style="-fx-background-color: #edfaff;" text="Reports" />
                               <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #edfaff;" text="My Profile" />
                               <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="231.0" style="-fx-background-color: #edfaff;" text="Logout" textFill="#cf0000" />
