@@ -220,7 +220,10 @@ private void loadView(String fxmlFile) {
 void handlecompanyOpen(ActionEvent event) {
     loadView("Manufactur.fxml");
 }
-
+   @FXML
+    void handleopencustbored(ActionEvent event) {
+loadView("Customers.fxml");
+    }
 
     public static void resetWelcomeState() {
         isFirstLogin = true;
