@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.QuadCurve?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="646.0" style="-fx-background-color: #edfaff;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.LoginController">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="-2.0" prefHeight="58.0" prefWidth="646.0" style="-fx-background-color: #bbe2f2;" text="pharmacy system" textFill="#00218c" AnchorPane.leftAnchor="-0.39999999999997726" AnchorPane.rightAnchor="-0.39999999999997726" AnchorPane.topAnchor="-2.0">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="39.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Label layoutX="68.0" layoutY="92.0" text="FIRST NAME :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="28.0" />
+         </font>
+      </Label>
+      <Button fx:id="loginButton" alignment="CENTER" layoutX="271.0" layoutY="343.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="30.0" prefWidth="104.0" style="-fx-background-color: #bbe2f2;" text="LOGIN" textAlignment="CENTER" textFill="#edfaff" underline="true">
+         <effect>
+            <DropShadow blurType="TWO_PASS_BOX" height="16.36" radius="8.855" width="21.06">
+               <input>
+                  <Lighting diffuseConstant="1.28" specularConstant="1.13" specularExponent="40.0">
+                     <bumpInput>
+                        <Shadow height="18.66" radius="11.7675" width="30.41" />
+                     </bumpInput>
+                     <light>
+                        <Light.Distant />
+                     </light>
+                  </Lighting>
+               </input>
+            </DropShadow>
+         </effect></Button>
+      <RadioButton fx:id="ownerRadio" layoutX="349.0" layoutY="288.0" mnemonicParsing="false" text="Owner" textFill="#00218c">
+         <toggleGroup>
+            <ToggleGroup fx:id="userTypeGroup" />
+         </toggleGroup>
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="12.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="employeeRadio" layoutX="227.0" layoutY="288.0" mnemonicParsing="false" selected="true" text="Employee" textFill="#00218c" toggleGroup="$userTypeGroup">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="12.0" />
+         </font></RadioButton>
+      <TextField fx:id="nameField" layoutX="68.0" layoutY="125.0">
+         <effect>
+            <Lighting diffuseConstant="1.4">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></TextField>
+      <TextField fx:id="idfield" layoutX="68.0" layoutY="212.0">
+         <effect>
+            <Lighting diffuseConstant="1.4">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect></TextField>
+      <Label layoutX="68.0" layoutY="175.0" text="ID :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="25.0" />
+         </font>
+      </Label>
+      <Circle fill="#bbe2f2" layoutX="505.0" layoutY="175.0" radius="100.0" stroke="#bbe2f2" strokeType="INSIDE">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Circle>
+      <Circle fill="#edfaff" layoutX="505.0" layoutY="138.0" radius="30.0" stroke="#edfaff" strokeType="INSIDE">
+         <effect>
+            <Lighting diffuseConstant="1.44">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </Circle>
+      <QuadCurve controlX="-23.0" controlY="-98.0" endX="50.0" fill="#edfaff" layoutX="528.0" layoutY="229.0" startX="-95.0" stroke="#edfaff" strokeType="INSIDE">
+         <effect>
+            <Lighting diffuseConstant="1.37">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </QuadCurve>
+   </children>
+</AnchorPane>

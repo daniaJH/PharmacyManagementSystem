@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.QuadCurve?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="695.0" prefWidth="1165.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.DashboardController">
+   <left>
+      <VBox prefHeight="755.0" prefWidth="218.0" style="-fx-background-color: #edfaff;" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="222.0" style="-fx-background-color: #bbe2f2;" text="PHARMACY MANAGEMENT" textFill="#00218c" VBox.vgrow="ALWAYS">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="12.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+            <AnchorPane prefHeight="134.0" prefWidth="219.0" VBox.vgrow="ALWAYS">
+               <children>
+                  <AnchorPane prefHeight="184.0" prefWidth="218.0">
+                     <children>
+                        <AnchorPane prefHeight="118.0" prefWidth="218.0">
+                           <children>
+                              <Circle fill="#bbe2f2" layoutX="107.0" layoutY="104.0" radius="97.0" stroke="#bbe2f2" strokeType="INSIDE">
+                                 <effect>
+                                    <InnerShadow />
+                                 </effect>
+                              </Circle>
+                              <Circle fill="#edfaff" layoutX="106.0" layoutY="62.0" radius="29.0" stroke="#edfaff" strokeType="INSIDE">
+                                 <effect>
+                                    <Lighting diffuseConstant="1.39">
+                                       <bumpInput>
+                                          <Shadow />
+                                       </bumpInput>
+                                       <light>
+                                          <Light.Distant />
+                                       </light>
+                                    </Lighting>
+                                 </effect>
+                              </Circle>
+                              <QuadCurve controlX="-23.000015258789062" controlY="-100.0" endX="34.99998474121094" endY="-9.600006103515625" fill="#edfaff" layoutX="129.0" layoutY="159.0" startX="-80.19999694824219" startY="-9.600006103515625" stroke="#edfaff" strokeType="INSIDE">
+                                 <effect>
+                                    <Lighting diffuseConstant="1.39">
+                                       <bumpInput>
+                                          <Shadow />
+                                       </bumpInput>
+                                       <light>
+                                          <Light.Distant />
+                                       </light>
+                                    </Lighting>
+                                 </effect>
+                              </QuadCurve>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </AnchorPane>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="211.0" prefHeight="18.0" prefWidth="220.0" text="User NAME" textAlignment="CENTER" />
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="229.0" prefHeight="18.0" prefWidth="218.0" text="Type" />
+               </children>
+            </AnchorPane>
+            <AnchorPane VBox.vgrow="ALWAYS">
+               <children>
+                  <AnchorPane layoutY="-195.0" prefHeight="510.0" prefWidth="219.0">
+                     <children>
+                        <VBox layoutY="182.0" prefHeight="254.0" prefWidth="219.0">
+                           <children>
+                              <Button fx:id="homeButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleHomeButton" prefHeight="26.0" prefWidth="220.0" style="-fx-background-color: #edfaff;" text="Home" />
+                              <Button fx:id="btnProducts" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleProducts" prefHeight="26.0" prefWidth="221.0" style="-fx-background-color: #edfaff;" text="Products" />
+                              <Button fx:id="salesButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleSalesButton" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Sales" />
+                              <Button fx:id="purchasesButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: #edfaff;" text="Purchases" />
+                              <Button fx:id="stockTakingButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #edfaff;" text="Stock Taking" />
+                              <Button fx:id="employeesButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Employees" />
+                              <Button fx:id="manufacturingCompanyButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handlecompanyOpen" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Manufacturing Company" />
+                              <Button fx:id="customersButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="224.0" style="-fx-background-color: #edfaff;" text="Customers" />
+                              <Button fx:id="reportsButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="220.0" style="-fx-background-color: #edfaff;" text="Reports" />
+                              <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #edfaff;" text="My Profile" />
+                              <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="231.0" style="-fx-background-color: #edfaff;" text="Logout" textFill="#cf0000" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <StackPane fx:id="contentArea" prefHeight="695.0" prefWidth="963.0" BorderPane.alignment="CENTER">
+         <children>
+            <VBox prefHeight="695.0" prefWidth="698.0" style="-fx-background-color: #eef6fa;">
+               <children>
+                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="1024.0" style="-fx-background-color: #bbe2f2;" text="PHARMACY SYSTEM" textAlignment="CENTER" textFill="#00218c" VBox.vgrow="ALWAYS">
+                     <font>
+                        <Font name="Berlin Sans FB Demi Bold" size="25.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </Label>
+                  <Label fx:id="welcomeLabel" prefHeight="69.0" prefWidth="610.0" text="Welcome to the Pharmacy Management System!" />
+                  <HBox alignment="CENTER" prefHeight="0.0" prefWidth="886.0" spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox fx:id="Fproduct" alignment="TOP_CENTER" prefHeight="136.0" prefWidth="187.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #e0e0e0; -fx-border-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4);" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="83.0" prefWidth="275.0" text="Products" textAlignment="CENTER" textFill="#4cbf4a" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblTotalProducts" alignment="CENTER" prefHeight="232.0" prefWidth="275.0" text="0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="Fsales" alignment="TOP_CENTER" prefHeight="100.0" prefWidth="196.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #e0e0e0; -fx-border-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4);;" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="79.0" prefWidth="283.0" text="Sales" textAlignment="CENTER" textFill="#c93f3f" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblTotalSales" alignment="CENTER" prefHeight="207.0" prefWidth="278.0" text="0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                        <VBox fx:id="Fstock" alignment="TOP_CENTER" prefHeight="140.0" prefWidth="195.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #e0e0e0; -fx-border-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4);;" HBox.hgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="73.0" prefWidth="276.0" text="Stock" textFill="#b9a62b" VBox.vgrow="ALWAYS">
+                                 <font>
+                                    <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="lblTotalStock" alignment="CENTER" prefHeight="222.0" prefWidth="271.0" text="0" VBox.vgrow="ALWAYS" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="191.0" prefWidth="502.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <VBox alignment="CENTER" prefHeight="286.0" prefWidth="523.0" HBox.hgrow="ALWAYS">
+                           <children>
+                              <BarChart fx:id="weeklySalesChart" alternativeColumnFillVisible="true" prefHeight="234.0" prefWidth="382.0" stylesheets="@CHART.css" title="Weekly Net Profit">
+                                <xAxis>
+                                  <CategoryAxis disable="true" prefHeight="16.0" prefWidth="279.0" side="BOTTOM" tickLabelFill="#ff1b1b" visible="false" fx:id="xAxis" />
+                                </xAxis>
+                                <yAxis>
+                                  <NumberAxis fx:id="yAxis" focusTraversable="true" prefHeight="86.0" prefWidth="24.0" side="LEFT" tickLabelFill="#ff3434" tickUnit="10.0" />
+                                </yAxis>
+                                 <styleClass>
+                                    <String fx:value="axis" />
+                                    <String fx:value="axis-line" />
+                                    <String fx:value="chart-bar" />
+                                    <String fx:value="chart-horizontal-grid-lines" />
+                                    <String fx:value="chart-plot-background" />
+                                    <String fx:value="chart-tick-label" />
+                                    <String fx:value="chart-vertical-grid-lines" />
+                                    <String fx:value="default-color0" />
+                                 </styleClass>
+                              </BarChart>
+                           </children>
+                        </VBox>
+                        <ListView fx:id="alertListView" editable="true" orientation="HORIZONTAL" prefHeight="195.0" prefWidth="450.0" stylesheets="@style.css" HBox.hgrow="ALWAYS" />
+                     </children>
+                  </HBox>
+                  <Label alignment="BOTTOM_LEFT" prefHeight="48.0" prefWidth="642.0" text="Pharmacy Management System v1.0 | Connected to System Database" textFill="#949494">
+                     <font>
+                        <Font size="9.0" />
+                     </font>
+                  </Label>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </center>
+</BorderPane>
