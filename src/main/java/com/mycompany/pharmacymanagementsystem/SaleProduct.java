@@ -27,7 +27,25 @@ private String batchNo;
     this.stock = stock;
 
 }
+    public SaleProduct(String productCode,
+                   String tradeName,
+                   String unit,
+                   double price,
+                   int stock) {
 
+    this.productCode = productCode;
+    this.tradeName = tradeName;
+    this.unit = unit;
+    this.price = price;
+    this.stock = stock;
+    this.batchNo = null;
+
+}public void setStock(int stock) {
+    this.stock = stock;
+}
+public void setBatchNo(String batchNo) {
+    this.batchNo = batchNo;
+}
     public String getProductCode() {
         return productCode;
     }
