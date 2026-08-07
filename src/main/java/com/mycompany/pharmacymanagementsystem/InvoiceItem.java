@@ -17,15 +17,20 @@ public class InvoiceItem {
     public InvoiceItem() {
     }
 
-    public InvoiceItem(String code, String productName, String unit,
-                       double price, int quantity) {
+    public InvoiceItem(String code,
+                   String productName,
+                   String unit,
+                   double price,
+                   
+                   int quantity) {
 
-        this.code = code;
-        this.productName = productName;
-        this.unit = unit;
-        this.price = price;
-        this.quantity = quantity;
-    }
+    this.code = code;
+    this.productName = productName;
+    this.unit = unit;
+    this.price = price;
+    
+    this.quantity = quantity;
+}
 
     public String getCode() {
         return code;
@@ -66,6 +71,7 @@ public class InvoiceItem {
     public void setPrice(double price) {
         this.price = price;
     }
+ 
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
