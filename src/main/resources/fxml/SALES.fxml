@@ -13,8 +13,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="695.0" prefWidth="970.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.mycompany.pharmacymanagementsystem.SalesController">
+<AnchorPane id="AnchorPane" prefHeight="695.0" prefWidth="970.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.SalesController">
    <children>
       <BorderPane prefHeight="694.0" prefWidth="970.0" style="-fx-background-color: #eef6fa;">
          <top>
@@ -110,9 +109,9 @@
                         <Font name="Berlin Sans FB Demi Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnRemoveItem" layoutX="163.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleRemoveItem" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Remove" />
-                  <Button fx:id="btnCheckout" layoutX="388.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleCompleteSale" styleClass="custom-button" stylesheets="@button.css" text="Complete Sale" />
-                  <Button fx:id="btnClearSale" layoutX="609.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleClearSale" prefHeight="34.0" prefWidth="132.0" styleClass="custom-button" stylesheets="@button.css" text="Clear Sale" />
+                  <Button fx:id="btnRemoveItem" layoutX="807.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleRemoveItem" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Remove" />
+                  <Button fx:id="btnCheckout" layoutX="412.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleCompleteSale" styleClass="custom-button" stylesheets="@button.css" text="Complete Sale" />
+                  <Button fx:id="btnClearSale" layoutX="697.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleClearSale" prefHeight="34.0" prefWidth="132.0" styleClass="custom-button" stylesheets="@button.css" text="Clear Sale" />
                   <RadioButton fx:id="rbCash" layoutX="671.0" layoutY="434.0" mnemonicParsing="false" selected="true" text="Cash" textFill="#00218c">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="13.0" />
@@ -191,6 +190,8 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <Button fx:id="AddProductButton" layoutX="478.0" layoutY="91.0" mnemonicParsing="false" onAction="#handleAddProduct" styleClass="custom-button" stylesheets="@button.css" text="Add" />
+                  <Button fx:id="btnRemoveSale" layoutX="158.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleRemoveSale" styleClass="custom-button" stylesheets="@button.css" text="Remove Sale" />
                </children>
             </AnchorPane>
          </bottom>
