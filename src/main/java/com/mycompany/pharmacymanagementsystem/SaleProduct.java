@@ -11,41 +11,39 @@ public class SaleProduct {
     private String unit;
     private double price;
     private int stock;
-private String batchNo;
-    public SaleProduct(String productCode,
-                   String tradeName,
-                   String unit,
-                   double price,
-                   String batchNo,
-                   int stock) {
+    private String batchNo;
 
-    this.productCode = productCode;
-    this.tradeName = tradeName;
-    this.unit = unit;
-    this.price = price;
-    this.batchNo = batchNo;
-    this.stock = stock;
+    public SaleProduct(
+            String productCode,
+            String tradeName,
+            String unit,
+            double price,
+            String batchNo,
+            int stock) {
 
-}
-    public SaleProduct(String productCode,
-                   String tradeName,
-                   String unit,
-                   double price,
-                   int stock) {
+        this.productCode = productCode;
+        this.tradeName = tradeName;
+        this.unit = unit;
+        this.price = price;
+        this.batchNo = batchNo;
+        this.stock = stock;
+    }
 
-    this.productCode = productCode;
-    this.tradeName = tradeName;
-    this.unit = unit;
-    this.price = price;
-    this.stock = stock;
-    this.batchNo = null;
+    public SaleProduct(
+            String productCode,
+            String tradeName,
+            String unit,
+            double price,
+            int stock) {
 
-}public void setStock(int stock) {
-    this.stock = stock;
-}
-public void setBatchNo(String batchNo) {
-    this.batchNo = batchNo;
-}
+        this.productCode = productCode;
+        this.tradeName = tradeName;
+        this.unit = unit;
+        this.price = price;
+        this.stock = stock;
+        this.batchNo = null;
+    }
+
     public String getProductCode() {
         return productCode;
     }
@@ -65,7 +63,16 @@ public void setBatchNo(String batchNo) {
     public int getStock() {
         return stock;
     }
+
     public String getBatchNo() {
-    return batchNo;
-}
+        return batchNo;
+    }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
+    public void setBatchNo(String batchNo) {
+        this.batchNo = batchNo;
+    }
 }
