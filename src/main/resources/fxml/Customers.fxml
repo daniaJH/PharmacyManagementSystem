@@ -9,23 +9,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="695.0" prefWidth="973.0" style="-fx-background-color: #edfaff;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/26" fx:controller="com.mycompany.pharmacymanagementsystem.CustomerController">
+<AnchorPane id="AnchorPane" prefHeight="695.0" prefWidth="960.0" style="-fx-background-color: #edfaff;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.CustomerController">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutY="-5.0" prefHeight="54.0" prefWidth="970.0" style="-fx-background-color: #bbe2f2;" text="Customers" textFill="#00218c">
-         <font>
-            <Font name="Berlin Sans FB Demi Bold" size="28.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </Label>
       <Label layoutX="97.0" layoutY="111.0" text="Search :" textFill="#00218c">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="26.0" />
          </font>
       </Label>
-      <TableView fx:id="tblcust" layoutY="190.0" prefHeight="298.0" prefWidth="970.0" stylesheets="@table.css">
+      <TableView fx:id="tblcust" layoutY="190.0" prefHeight="298.0" prefWidth="963.0" stylesheets="@table.css">
         <columns>
           <TableColumn fx:id="colidcust" prefWidth="75.0" text="Customer Id" />
           <TableColumn fx:id="Fnamecust" prefWidth="75.0" text="First Name" />
@@ -47,5 +38,13 @@
       <Button fx:id="btnupdatecust" layoutX="313.0" layoutY="542.0" mnemonicParsing="false" onAction="#handleupdatecust" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Update" />
       <Button fx:id="btndeletecust" layoutX="553.0" layoutY="542.0" mnemonicParsing="false" onAction="#handledeletecust" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Delete" />
       <Button fx:id="btnclearcust" layoutX="768.0" layoutY="542.0" mnemonicParsing="false" onAction="#handlecleartbl" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Clear" />
+      <Label alignment="CENTER" layoutX="-2.0" prefHeight="54.0" prefWidth="966.0" style="-fx-background-color: #bbe2f2;" text="Customers" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="24.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
    </children>
 </AnchorPane>
