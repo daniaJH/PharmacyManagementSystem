@@ -25,7 +25,7 @@
    <left>
       <VBox prefHeight="755.0" prefWidth="218.0" style="-fx-background-color: #edfaff;" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="46.0" prefWidth="222.0" style="-fx-background-color: #bbe2f2;" text="PHARMACY MANAGEMENT" textFill="#00218c" VBox.vgrow="ALWAYS">
+            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="54.0" prefWidth="220.0" style="-fx-background-color: #bbe2f2;" text="PHARMACY MANAGEMENT" textFill="#00218c" VBox.vgrow="ALWAYS">
                <font>
                   <Font name="Berlin Sans FB Demi Bold" size="12.0" />
                </font>
@@ -37,7 +37,7 @@
                <children>
                   <AnchorPane prefHeight="184.0" prefWidth="218.0">
                      <children>
-                        <AnchorPane prefHeight="118.0" prefWidth="218.0">
+                        <AnchorPane prefHeight="202.0" prefWidth="218.0">
                            <children>
                               <Circle fill="#bbe2f2" layoutX="107.0" layoutY="104.0" radius="97.0" stroke="#bbe2f2" strokeType="INSIDE">
                                  <effect>
@@ -72,29 +72,29 @@
                         </AnchorPane>
                      </children>
                   </AnchorPane>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-2.0" layoutY="211.0" prefHeight="18.0" prefWidth="220.0" text="User NAME" textAlignment="CENTER" />
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutY="229.0" prefHeight="18.0" prefWidth="218.0" text="Type" />
                </children>
             </AnchorPane>
             <AnchorPane VBox.vgrow="ALWAYS">
                <children>
-                  <AnchorPane layoutY="-195.0" prefHeight="510.0" prefWidth="219.0">
+                  <AnchorPane layoutY="-3.0" prefHeight="318.0" prefWidth="219.0">
                      <children>
-                        <VBox layoutY="182.0" prefHeight="254.0" prefWidth="219.0">
+                        <VBox layoutY="55.0" prefHeight="301.0" prefWidth="219.0">
                            <children>
                               <Button fx:id="homeButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleHomeButton" prefHeight="26.0" prefWidth="220.0" style="-fx-background-color: #edfaff;" text="Home" />
                               <Button fx:id="btnProducts" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleProducts" prefHeight="26.0" prefWidth="221.0" style="-fx-background-color: #edfaff;" text="Products" />
                               <Button fx:id="salesButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleSalesButton" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Sales" />
-                              <Button fx:id="purchasesButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: #edfaff;" text="Purchases" />
-                              <Button fx:id="stockTakingButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #edfaff;" text="Stock Taking" />
-                              <Button fx:id="employeesButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Employees" />
+                              <Button fx:id="purchasesButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#Purchasesopenbtn" prefHeight="26.0" prefWidth="219.0" style="-fx-background-color: #edfaff;" text="Purchases" />
+                              <Button fx:id="stockTakingButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleopenstocktaking" prefHeight="26.0" prefWidth="223.0" style="-fx-background-color: #edfaff;" text="Stock Taking" />
+                              <Button fx:id="employeesButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleopenemployee" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Employees" />
                               <Button fx:id="manufacturingCompanyButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handlecompanyOpen" prefHeight="26.0" prefWidth="222.0" style="-fx-background-color: #edfaff;" text="Manufacturing Company" />
                               <Button fx:id="customersButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleopencustbored" prefHeight="26.0" prefWidth="224.0" style="-fx-background-color: #edfaff;" text="Customers" />
-                              <Button fx:id="reportsButton" alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="220.0" style="-fx-background-color: #edfaff;" text="Reports" />
-                              <Button alignment="TOP_LEFT" mnemonicParsing="false" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #edfaff;" text="My Profile" />
-                              <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="26.0" prefWidth="231.0" style="-fx-background-color: #edfaff;" text="Logout" textFill="#cf0000" />
+                              <Button fx:id="reportsButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleopenreports" prefHeight="26.0" prefWidth="220.0" style="-fx-background-color: #edfaff;" text="Reports" />
+                              <Button fx:id="myprofilebtn" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#handleopenprofiledetial" prefHeight="26.0" prefWidth="225.0" style="-fx-background-color: #edfaff;" text="My Profile" />
+                              <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#handlelogout" prefHeight="26.0" prefWidth="231.0" style="-fx-background-color: #edfaff;" text="Logout" textFill="#cf0000" />
                            </children>
                         </VBox>
+                        <Label fx:id="username" alignment="CENTER" layoutX="-3.0" layoutY="-70.0" prefHeight="98.0" prefWidth="222.0" text="Label" />
+                        <Label fx:id="type" alignment="CENTER" layoutX="-3.0" layoutY="-50.0" prefHeight="99.0" prefWidth="222.0" text="Label" />
                      </children>
                   </AnchorPane>
                </children>
@@ -107,9 +107,9 @@
          <children>
             <VBox prefHeight="695.0" prefWidth="698.0" style="-fx-background-color: #eef6fa;">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="1024.0" style="-fx-background-color: #bbe2f2;" text="PHARMACY SYSTEM" textAlignment="CENTER" textFill="#00218c" VBox.vgrow="ALWAYS">
+                  <Label alignment="CENTER" prefHeight="54.0" prefWidth="966.0" style="-fx-background-color: #bbe2f2;" text="PHARMACY SYSTEM" textFill="#00218c">
                      <font>
-                        <Font name="Berlin Sans FB Demi Bold" size="25.0" />
+                        <Font name="Berlin Sans FB Demi Bold" size="24.0" />
                      </font>
                      <effect>
                         <DropShadow />
@@ -120,7 +120,7 @@
                      <children>
                         <VBox fx:id="Fproduct" alignment="TOP_CENTER" prefHeight="136.0" prefWidth="187.0" style="-fx-background-color: white; -fx-background-radius: 12; -fx-border-color: #e0e0e0; -fx-border-radius: 12; -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4); -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.08), 10, 0, 0, 4);" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="83.0" prefWidth="275.0" text="Products" textAlignment="CENTER" textFill="#4cbf4a" VBox.vgrow="ALWAYS">
+                              <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="20.0" prefWidth="288.0" text="Products" textAlignment="CENTER" textFill="#4cbf4a" VBox.vgrow="ALWAYS">
                                  <font>
                                     <Font name="Berlin Sans FB Demi Bold" size="17.0" />
                                  </font>
