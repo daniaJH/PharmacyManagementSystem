@@ -19,10 +19,13 @@ import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ListCell;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 public class DashboardController implements Initializable {
@@ -32,7 +35,13 @@ public class DashboardController implements Initializable {
 
     // متغير لحفظ عناصر الداشبورد الأصلية (البطاقات والشارت) عند الفتح
     private Node mainDashboardContent;
+@FXML
+private Label username;
 
+@FXML
+private Label type;
+@FXML
+private Button purchasesButton;
     // عناصر البطاقات (Labels)
     @FXML private Label lblTotalProducts;
     @FXML private Label lblTotalSales;
@@ -40,12 +49,28 @@ public class DashboardController implements Initializable {
     @FXML private ListView<String> alertListView;
     @FXML private Label welcomeLabel;
     private static boolean isFirstLogin = true;
-
+@FXML
+private Button reportsButton;
     // عنصر الرسم البياني (BarChart)
     @FXML private BarChart<String, Number> weeklySalesChart;
 
     private final DashboardDAO dashboardDAO = new DashboardDAO();
+private void applyPermissions() {
 
+    boolean isOwner =
+            "Owner".equalsIgnoreCase(UserSession.getUserType());
+
+    // أشياء خاصة بالمالك فقط
+    if (employeesButton != null) {
+        employeesButton.setVisible(isOwner);
+        employeesButton.setManaged(isOwner);
+    }
+
+    if (reportsButton != null) {
+        reportsButton.setVisible(isOwner);
+        reportsButton.setManaged(isOwner);
+    }
+}
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -57,10 +82,12 @@ public class DashboardController implements Initializable {
             welcomeLabel.setVisible(false);
             welcomeLabel.setManaged(false);
         }
+loadUserInfo();
+applyPermissions();
 
-        loadCardsData();
-        setupWeeklyProfitChart();
-        setupNotifications();
+loadCardsData();
+setupWeeklyProfitChart();
+setupNotifications();
 
         // حفظ محتوى السنتر الأصلي (الداشبورد) أول ما يشتغل البرنامج
         if (contentArea != null && !contentArea.getChildren().isEmpty()) {
@@ -79,9 +106,72 @@ public class DashboardController implements Initializable {
             lblTotalStock.setText(String.valueOf(dashboardDAO.getTotalStockCount()));
         }
     }
-
+@FXML
+private Button logoutButton;
     @FXML private NumberAxis yAxis; // أضيفي هذا المتغير فوق مع الـ @FXML
+private void loadUserInfo() {
 
+    if (username != null) {
+        username.setText(UserSession.getFirstName());
+    }
+
+    if (type != null) {
+        type.setText(UserSession.getUserType());
+    }
+}
+@FXML
+private void handleopenemployee(ActionEvent event) {
+
+    try {
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/fxml/Employee.fxml")
+        );
+
+        Parent root = loader.load();
+
+        contentArea.getChildren().setAll(root);
+
+    } catch (IOException e) {
+
+        e.printStackTrace();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Unable to open Employee page.");
+        alert.showAndWait();
+    }
+}
+  @FXML
+    private Button employeesButton;
+@FXML
+private void handlelogout(ActionEvent event) {
+
+    try {
+        // مسح بيانات المستخدم الحالي
+        UserSession.clear();
+
+        // فتح شاشة تسجيل الدخول
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/fxml/login.fxml")
+        );
+
+        Parent root = loader.load();
+
+        // الحصول على الـ Stage الحالي
+        Stage stage = (Stage) ((Node) event.getSource())
+                .getScene()
+                .getWindow();
+
+        // تغيير الـ Scene إلى Login
+        stage.setScene(new Scene(root));
+        stage.show();
+
+    } catch (IOException e) {
+        e.printStackTrace();
+    }
+}
 private void setupWeeklyProfitChart() {
     if (weeklySalesChart == null) return;
 
@@ -125,6 +215,38 @@ public void handleHomeButton(ActionEvent event) {
         contentArea.getChildren().setAll(mainDashboardContent);
     }
 }
+
+@FXML
+void handleopenreports(ActionEvent event) {
+
+    try {
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/fxml/Reports.fxml")
+        );
+
+        Parent root = loader.load();
+
+        contentArea.getChildren().setAll(root);
+
+    } catch (IOException e) {
+
+        e.printStackTrace();
+
+        Alert alert = new Alert(
+                Alert.AlertType.ERROR
+        );
+
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(
+                "Unable to open Reports."
+        );
+
+        alert.showAndWait();
+    }
+}
+
 
     // دالة فتح واجهة المنتجات داخل الـ StackPane
     @FXML
@@ -217,6 +339,10 @@ private void loadView(String fxmlFile) {
 }
 
 @FXML
+void handleopenprofiledetial(ActionEvent event) {
+    loadView("Profileinfo.fxml");
+}
+@FXML
 void handlecompanyOpen(ActionEvent event) {
     loadView("Manufactur.fxml");
 }
@@ -224,8 +350,66 @@ void handlecompanyOpen(ActionEvent event) {
     void handleopencustbored(ActionEvent event) {
 loadView("Customers.fxml");
     }
+    
+@FXML
+private void handleopenstocktaking(ActionEvent event) {
 
+    try {
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/fxml/Stock Taking.fxml")
+        );
+
+        Parent root = loader.load();
+
+        contentArea.getChildren().setAll(root);
+
+    } catch (IOException e) {
+
+        e.printStackTrace();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(
+                "Unable to open Stock Taking page."
+        );
+        alert.showAndWait();
+    }
+}
+
+@FXML
+void Purchasesopenbtn(ActionEvent event) {
+
+    try {
+
+        FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/fxml/Purchases.fxml")
+        );
+
+        Parent purchasesView = loader.load();
+
+        contentArea.getChildren().setAll(purchasesView);
+
+    } catch (IOException ex) {
+
+        ex.printStackTrace();
+
+        Alert alert = new Alert(
+                Alert.AlertType.ERROR
+        );
+
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(
+                "Unable to open Purchases page."
+        );
+
+        alert.showAndWait();
+    }
+}
     public static void resetWelcomeState() {
         isFirstLogin = true;
     }
+  
 }
