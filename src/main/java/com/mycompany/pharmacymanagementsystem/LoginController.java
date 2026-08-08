@@ -49,23 +49,39 @@ public void handleLogin(ActionEvent event) {
 
     if (ownerRadio.isSelected()) {
 
-        if (userAccountDAO.checkOwner(name, id)) {
-            loginSuccess = true;
-            userType = "Owner";
-        } else {
-            showError("Invalid Owner name or ID.");
-            return;
-        }
+        
+if (userAccountDAO.checkOwner(name, id)) {
+
+    loginSuccess = true;
+    userType = "Owner";
+
+    UserSession.setUser(id, userType, name);
+
+} else {
+
+    showError("Invalid Owner name or ID.");
+    return;
+}
+
+
 
     } else if (employeeRadio.isSelected()) {
 
-        if (userAccountDAO.checkEmployee(name, id)) {
-            loginSuccess = true;
-            userType = "Employee";
-        } else {
-            showError("Invalid Employee name or ID.");
-            return;
-        }
+       
+if (userAccountDAO.checkEmployee(name, id)) {
+
+    loginSuccess = true;
+    userType = "Employee";
+
+    UserSession.setUser(id, userType, name);
+
+} else {
+
+    showError("Invalid Employee name or ID.");
+    return;
+}
+
+
 
     } else {
 
@@ -73,9 +89,16 @@ public void handleLogin(ActionEvent event) {
         return;
     }
 
-    if (loginSuccess) {
-        openDashboard(event);
-    }
+if (loginSuccess) {
+
+    UserSession.setUser(
+        id,
+        userType,
+        name
+    );
+
+    openDashboard(event);
+}
 }
 private void openDashboard(ActionEvent event) {
     try {
