@@ -18,9 +18,10 @@ public class CustomerFormController {
     @FXML
     private TextField txtidcust;
 
+    
     @FXML
     private TextField txtfnamecust;
-
+private String addedCustomerId;
     @FXML
     private TextField txtmnamecust;
 
@@ -188,7 +189,7 @@ public void setCustomerData(Customer customer) {
 
 
             ps.executeUpdate();
-
+addedCustomerId = txtidcust.getText().trim();
 
             showInformation(
                     "Success",
@@ -378,7 +379,9 @@ public void setCustomerData(Customer customer) {
         alert.showAndWait();
     }
 
-
+public String getAddedCustomerId() {
+    return addedCustomerId;
+}
     private void showError(
             String title,
             String message) {
