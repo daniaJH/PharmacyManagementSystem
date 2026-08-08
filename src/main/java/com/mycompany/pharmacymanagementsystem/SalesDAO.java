@@ -651,6 +651,160 @@ public static class SaleDetail {
     }
 }
 
+// =========================================================
+// DELETE SALE / RESTORE STOCK
+// =========================================================
 
+public boolean deleteSale(String invoiceNo) {
+
+    String getDetailsSQL = """
+            SELECT batch_no, quantity
+            FROM sale_detail
+            WHERE invoiceno = ?
+            """;
+
+    String restoreStockSQL = """
+            UPDATE batch
+            SET quantity = quantity + ?
+            WHERE batch_no = ?
+            """;
+
+    String deleteDetailsSQL = """
+            DELETE FROM sale_detail
+            WHERE invoiceno = ?
+            """;
+
+    String deleteInvoiceSQL = """
+            DELETE FROM sales_invoice
+            WHERE invoiceno = ?
+            """;
+
+    Connection conn = null;
+
+    try {
+
+        conn = DatabaseConnection.getConnection();
+
+        // Start transaction
+        conn.setAutoCommit(false);
+
+        // -------------------------------------------------
+        // 1. Get sold batches and quantities
+        // -------------------------------------------------
+
+        try (
+                PreparedStatement ps =
+                        conn.prepareStatement(getDetailsSQL)
+        ) {
+
+            ps.setString(1, invoiceNo);
+
+            try (ResultSet rs = ps.executeQuery()) {
+
+                while (rs.next()) {
+
+                    String batchNo =
+                            rs.getString("batch_no");
+
+                    int quantity =
+                            rs.getInt("quantity");
+
+                    // -------------------------------------------------
+                    // 2. Restore stock
+                    // -------------------------------------------------
+
+                    try (
+                            PreparedStatement restorePS =
+                                    conn.prepareStatement(
+                                            restoreStockSQL
+                                    )
+                    ) {
+
+                        restorePS.setInt(1, quantity);
+                        restorePS.setString(2, batchNo);
+
+                        restorePS.executeUpdate();
+                    }
+                }
+            }
+        }
+
+        // -------------------------------------------------
+        // 3. Delete sale details
+        // -------------------------------------------------
+
+        try (
+                PreparedStatement ps =
+                        conn.prepareStatement(deleteDetailsSQL)
+        ) {
+
+            ps.setString(1, invoiceNo);
+
+            ps.executeUpdate();
+        }
+
+        // -------------------------------------------------
+        // 4. Delete invoice
+        // -------------------------------------------------
+
+        try (
+                PreparedStatement ps =
+                        conn.prepareStatement(deleteInvoiceSQL)
+        ) {
+
+            ps.setString(1, invoiceNo);
+
+            int rows =
+                    ps.executeUpdate();
+
+            if (rows == 0) {
+
+                conn.rollback();
+
+                return false;
+            }
+        }
+
+        // -------------------------------------------------
+        // 5. Commit
+        // -------------------------------------------------
+
+        conn.commit();
+
+        return true;
+
+    } catch (SQLException ex) {
+
+        ex.printStackTrace();
+
+        try {
+
+            if (conn != null) {
+                conn.rollback();
+            }
+
+        } catch (SQLException rollbackEx) {
+
+            rollbackEx.printStackTrace();
+        }
+
+        return false;
+
+    } finally {
+
+        try {
+
+            if (conn != null) {
+
+                conn.setAutoCommit(true);
+                conn.close();
+            }
+
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+        }
+    }
+}
 }
 
