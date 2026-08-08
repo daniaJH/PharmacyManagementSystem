@@ -231,30 +231,91 @@ public class salesHistoryController implements javafx.fxml.Initializable {
     // =========================================================
 
     @FXML
-    private void handleDeleteSale(ActionEvent event) {
+private void handleDeleteSale(ActionEvent event) {
 
-        SalesInvoice selected =
-                tblsaleshistory
-                        .getSelectionModel()
-                        .getSelectedItem();
+    SalesInvoice selected =
+            tblsaleshistory
+                    .getSelectionModel()
+                    .getSelectedItem();
 
-        if (selected == null) {
+    // -------------------------------------------------
+    // No invoice selected
+    // -------------------------------------------------
 
-            showAlert(
-                    Alert.AlertType.WARNING,
-                    "No Selection",
-                    "Please select an invoice first."
+    if (selected == null) {
+
+        showAlert(
+                Alert.AlertType.WARNING,
+                "No Selection",
+                "Please select an invoice first."
+        );
+
+        return;
+    }
+
+    // -------------------------------------------------
+    // Confirmation
+    // -------------------------------------------------
+
+    Alert confirmation =
+            new Alert(Alert.AlertType.CONFIRMATION);
+
+    confirmation.setTitle("Delete Invoice");
+    confirmation.setHeaderText("Delete Invoice");
+    confirmation.setContentText(
+            "Are you sure you want to delete invoice "
+            + selected.getInvoiceNo()
+            + "?\n\n"
+            + "The invoice details will be deleted and "
+            + "the sold quantities will be returned to stock."
+    );
+
+    var result =
+            confirmation.showAndWait();
+
+    if (result.isEmpty() ||
+            result.get() != javafx.scene.control.ButtonType.OK) {
+
+        return;
+    }
+
+    // -------------------------------------------------
+    // Delete from database
+    // -------------------------------------------------
+
+    boolean deleted =
+            salesDAO.deleteSale(
+                    selected.getInvoiceNo()
             );
 
-            return;
-        }
+    if (deleted) {
+
+        // Remove from TableView
+        invoiceList.remove(selected);
+
+        tblsaleshistory
+                .getSelectionModel()
+                .clearSelection();
 
         showAlert(
                 Alert.AlertType.INFORMATION,
-                "Delete",
-                "Delete functionality should be connected to the DAO."
+                "Success",
+                "Invoice "
+                + selected.getInvoiceNo()
+                + " was deleted successfully."
+        );
+
+    } else {
+
+        showAlert(
+                Alert.AlertType.ERROR,
+                "Delete Failed",
+                "Unable to delete invoice "
+                + selected.getInvoiceNo()
+                + "."
         );
     }
+}
 
     // =========================================================
     // ALERT
