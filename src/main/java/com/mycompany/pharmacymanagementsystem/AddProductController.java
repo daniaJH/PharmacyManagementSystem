@@ -42,7 +42,7 @@ public class AddProductController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        combunit.getItems().addAll("Box", "Tube", "Bottle");
+        combunit.getItems().addAll("Box", "Tube", "Bottle","Piece");
         cmbCompanies.setItems(addProductDAO.getManufacturers());
 
         if (!cmbCompanies.getItems().isEmpty()) {
@@ -50,7 +50,7 @@ public class AddProductController implements Initializable {
         }
         combunit.getSelectionModel().selectFirst();
 
-        cmbProductType.getItems().addAll("Skin Care", "Hair Care", "Body Care", "Sun Care", "Oral Care");
+        cmbProductType.getItems().addAll("Skin Care", "Hair Care", "Body Care", "Sun Care", "Oral Care","Vitamin Supplement","Mineral Supplement","Allergy Care");
         cmbProductType.getSelectionModel().selectFirst();
 cmbCompanies.setItems(addProductDAO.getManufacturers());
 
