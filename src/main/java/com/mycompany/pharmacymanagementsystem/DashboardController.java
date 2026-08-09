@@ -211,8 +211,20 @@ private void setupWeeklyProfitChart() {
 // دالة Home: لا تقومي بإعادة استدعاء setupWeeklyProfitChart() هنا نهائياً
 @FXML
 public void handleHomeButton(ActionEvent event) {
+
     if (mainDashboardContent != null) {
+
+        // إظهار الـ Dashboard
         contentArea.getChildren().setAll(mainDashboardContent);
+
+        // تحديث البطاقات
+        loadCardsData();
+
+        // تحديث الرسم البياني
+        setupWeeklyProfitChart();
+
+        // تحديث التنبيهات
+        setupNotifications();
     }
 }
 
