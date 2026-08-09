@@ -1,4 +1,3 @@
-
 package com.mycompany.pharmacymanagementsystem;
 
 import java.sql.Connection;
@@ -242,8 +241,10 @@ public class SalesDAO {
             con = DatabaseConnection.getConnection();
             con.setAutoCommit(false);
 
-            try (PreparedStatement psInvoice =
-                         con.prepareStatement(invoiceSQL)) {
+            try (
+                    PreparedStatement psInvoice =
+                            con.prepareStatement(invoiceSQL)
+            ) {
 
                 psInvoice.setString(1, invoiceNo);
 
@@ -329,13 +330,17 @@ public class SalesDAO {
                 ORDER BY expire_date
                 """;
 
-        try (PreparedStatement psBatch =
-                     con.prepareStatement(batchSQL)) {
+        try (
+                PreparedStatement psBatch =
+                        con.prepareStatement(batchSQL)
+        ) {
 
             psBatch.setString(1, productCode);
 
-            try (ResultSet rs =
-                         psBatch.executeQuery()) {
+            try (
+                    ResultSet rs =
+                            psBatch.executeQuery()
+            ) {
 
                 while (quantity > 0 && rs.next()) {
 
@@ -351,7 +356,6 @@ public class SalesDAO {
                                     batchQty
                             );
 
-
                     insertSaleDetail(
                             con,
                             invoiceNo,
@@ -360,13 +364,11 @@ public class SalesDAO {
                             sellingPrice
                     );
 
-
                     updateBatchQuantity(
                             con,
                             batchNo,
                             sold
                     );
-
 
                     quantity -= sold;
                 }
@@ -401,8 +403,10 @@ public class SalesDAO {
                 VALUES (?, ?, ?, ?)
                 """;
 
-        try (PreparedStatement ps =
-                     con.prepareStatement(sql)) {
+        try (
+                PreparedStatement ps =
+                        con.prepareStatement(sql)
+        ) {
 
             ps.setString(1, invoiceNo);
             ps.setString(2, batchNo);
@@ -430,8 +434,10 @@ public class SalesDAO {
                 WHERE batch_no = ?
                 """;
 
-        try (PreparedStatement ps =
-                     con.prepareStatement(sql)) {
+        try (
+                PreparedStatement ps =
+                        con.prepareStatement(sql)
+        ) {
 
             ps.setInt(1, sold);
             ps.setString(2, batchNo);
@@ -556,145 +562,34 @@ public class SalesDAO {
     }
 
 
-   // =========================================================
-// SALE DETAILS
-// =========================================================
+    // =========================================================
+    // SALE DETAILS
+    // =========================================================
 
-public ObservableList<SaleDetail> getSaleDetails(
-        String invoiceNo) {
+    public ObservableList<SaleDetail> getSaleDetails(
+            String invoiceNo) {
 
-    ObservableList<SaleDetail> list =
-            FXCollections.observableArrayList();
+        ObservableList<SaleDetail> list =
+                FXCollections.observableArrayList();
 
-    String sql = """
-            SELECT
-                sd.invoiceno,
-                sd.batch_no,
-                sd.quantity,
-                sd.selling_price
-            FROM sale_detail sd
-            WHERE sd.invoiceno = ?
-            ORDER BY sd.batch_no
-            """;
-
-    try (
-            Connection conn = DatabaseConnection.getConnection();
-            PreparedStatement ps = conn.prepareStatement(sql)
-    ) {
-
-        ps.setString(1, invoiceNo);
-
-        try (ResultSet rs = ps.executeQuery()) {
-
-            while (rs.next()) {
-
-                list.add(
-                        new SaleDetail(
-                                rs.getString("invoiceno"),
-                                rs.getString("batch_no"),
-                                rs.getInt("quantity"),
-                                rs.getDouble("selling_price")
-                        )
-                );
-            }
-        }
-
-    } catch (SQLException ex) {
-
-        ex.printStackTrace();
-    }
-
-    return list;
-}
-
-// =========================================================
-// SALE DETAIL MODEL
-// =========================================================
-
-public static class SaleDetail {
-
-    private final String invoiceNumber;
-    private final String batchNumber;
-    private final int quantity;
-    private final double sellingPrice;
-
-    public SaleDetail(
-            String invoiceNumber,
-            String batchNumber,
-            int quantity,
-            double sellingPrice) {
-
-        this.invoiceNumber = invoiceNumber;
-        this.batchNumber = batchNumber;
-        this.quantity = quantity;
-        this.sellingPrice = sellingPrice;
-    }
-
-    public String getInvoiceNumber() {
-        return invoiceNumber;
-    }
-
-    public String getBatchNumber() {
-        return batchNumber;
-    }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
-    public double getSellingPrice() {
-        return sellingPrice;
-    }
-
-    public double getTotal() {
-        return quantity * sellingPrice;
-    }
-}
-
-// =========================================================
-// DELETE SALE / RESTORE STOCK
-// =========================================================
-
-public boolean deleteSale(String invoiceNo) {
-
-    String getDetailsSQL = """
-            SELECT batch_no, quantity
-            FROM sale_detail
-            WHERE invoiceno = ?
-            """;
-
-    String restoreStockSQL = """
-            UPDATE batch
-            SET quantity = quantity + ?
-            WHERE batch_no = ?
-            """;
-
-    String deleteDetailsSQL = """
-            DELETE FROM sale_detail
-            WHERE invoiceno = ?
-            """;
-
-    String deleteInvoiceSQL = """
-            DELETE FROM sales_invoice
-            WHERE invoiceno = ?
-            """;
-
-    Connection conn = null;
-
-    try {
-
-        conn = DatabaseConnection.getConnection();
-
-        // Start transaction
-        conn.setAutoCommit(false);
-
-        // -------------------------------------------------
-        // 1. Get sold batches and quantities
-        // -------------------------------------------------
+        String sql = """
+                SELECT
+                    sd.invoiceno,
+                    p.tradename AS product_name,
+                    sd.quantity,
+                    sd.selling_price
+                FROM sale_detail sd
+                JOIN batch b
+                    ON sd.batch_no = b.batch_no
+                JOIN product p
+                    ON b.productcode = p.productcode
+                WHERE sd.invoiceno = ?
+                ORDER BY p.tradename
+                """;
 
         try (
-                PreparedStatement ps =
-                        conn.prepareStatement(getDetailsSQL)
+                Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement ps = conn.prepareStatement(sql)
         ) {
 
             ps.setString(1, invoiceNo);
@@ -703,108 +598,232 @@ public boolean deleteSale(String invoiceNo) {
 
                 while (rs.next()) {
 
-                    String batchNo =
-                            rs.getString("batch_no");
-
-                    int quantity =
-                            rs.getInt("quantity");
-
-                    // -------------------------------------------------
-                    // 2. Restore stock
-                    // -------------------------------------------------
-
-                    try (
-                            PreparedStatement restorePS =
-                                    conn.prepareStatement(
-                                            restoreStockSQL
-                                    )
-                    ) {
-
-                        restorePS.setInt(1, quantity);
-                        restorePS.setString(2, batchNo);
-
-                        restorePS.executeUpdate();
-                    }
+                    list.add(
+                            new SaleDetail(
+                                    rs.getString("invoiceno"),
+                                    rs.getString("product_name"),
+                                    rs.getInt("quantity"),
+                                    rs.getDouble("selling_price")
+                            )
+                    );
                 }
-            }
-        }
-
-        // -------------------------------------------------
-        // 3. Delete sale details
-        // -------------------------------------------------
-
-        try (
-                PreparedStatement ps =
-                        conn.prepareStatement(deleteDetailsSQL)
-        ) {
-
-            ps.setString(1, invoiceNo);
-
-            ps.executeUpdate();
-        }
-
-        // -------------------------------------------------
-        // 4. Delete invoice
-        // -------------------------------------------------
-
-        try (
-                PreparedStatement ps =
-                        conn.prepareStatement(deleteInvoiceSQL)
-        ) {
-
-            ps.setString(1, invoiceNo);
-
-            int rows =
-                    ps.executeUpdate();
-
-            if (rows == 0) {
-
-                conn.rollback();
-
-                return false;
-            }
-        }
-
-        // -------------------------------------------------
-        // 5. Commit
-        // -------------------------------------------------
-
-        conn.commit();
-
-        return true;
-
-    } catch (SQLException ex) {
-
-        ex.printStackTrace();
-
-        try {
-
-            if (conn != null) {
-                conn.rollback();
-            }
-
-        } catch (SQLException rollbackEx) {
-
-            rollbackEx.printStackTrace();
-        }
-
-        return false;
-
-    } finally {
-
-        try {
-
-            if (conn != null) {
-
-                conn.setAutoCommit(true);
-                conn.close();
             }
 
         } catch (SQLException ex) {
 
             ex.printStackTrace();
         }
+
+        return list;
     }
-}
+
+
+    // =========================================================
+    // DELETE SALE / RESTORE STOCK
+    // =========================================================
+
+    public boolean deleteSale(String invoiceNo) {
+
+        String getDetailsSQL = """
+                SELECT
+                    batch_no,
+                    quantity
+                FROM sale_detail
+                WHERE invoiceno = ?
+                """;
+
+        String restoreStockSQL = """
+                UPDATE batch
+                SET quantity = quantity + ?
+                WHERE batch_no = ?
+                """;
+
+        String deleteDetailsSQL = """
+                DELETE FROM sale_detail
+                WHERE invoiceno = ?
+                """;
+
+        String deleteInvoiceSQL = """
+                DELETE FROM sales_invoice
+                WHERE invoiceno = ?
+                """;
+
+        Connection conn = null;
+
+        try {
+
+            conn = DatabaseConnection.getConnection();
+
+            conn.setAutoCommit(false);
+
+            // =================================================
+            // 1. GET DETAILS + RESTORE STOCK
+            // =================================================
+
+            try (
+                    PreparedStatement ps =
+                            conn.prepareStatement(getDetailsSQL)
+            ) {
+
+                ps.setString(1, invoiceNo);
+
+                try (
+                        ResultSet rs =
+                                ps.executeQuery()
+                ) {
+
+                    while (rs.next()) {
+
+                        String batchNo =
+                                rs.getString("batch_no");
+
+                        int quantity =
+                                rs.getInt("quantity");
+
+                        try (
+                                PreparedStatement restorePS =
+                                        conn.prepareStatement(
+                                                restoreStockSQL
+                                        )
+                        ) {
+
+                            restorePS.setInt(1, quantity);
+                            restorePS.setString(2, batchNo);
+
+                            restorePS.executeUpdate();
+                        }
+                    }
+                }
+            }
+
+
+            // =================================================
+            // 2. DELETE SALE DETAILS
+            // =================================================
+
+            try (
+                    PreparedStatement ps =
+                            conn.prepareStatement(
+                                    deleteDetailsSQL
+                            )
+            ) {
+
+                ps.setString(1, invoiceNo);
+
+                ps.executeUpdate();
+            }
+
+
+            // =================================================
+            // 3. DELETE INVOICE
+            // =================================================
+
+            try (
+                    PreparedStatement ps =
+                            conn.prepareStatement(
+                                    deleteInvoiceSQL
+                            )
+            ) {
+
+                ps.setString(1, invoiceNo);
+
+                int rowsDeleted =
+                        ps.executeUpdate();
+
+                if (rowsDeleted == 0) {
+
+                    conn.rollback();
+
+                    return false;
+                }
+            }
+
+
+            // =================================================
+            // 4. COMMIT
+            // =================================================
+
+            conn.commit();
+
+            return true;
+
+        } catch (SQLException ex) {
+
+            ex.printStackTrace();
+
+            try {
+
+                if (conn != null) {
+                    conn.rollback();
+                }
+
+            } catch (SQLException rollbackEx) {
+
+                rollbackEx.printStackTrace();
+            }
+
+            return false;
+
+        } finally {
+
+            try {
+
+                if (conn != null) {
+
+                    conn.setAutoCommit(true);
+                    conn.close();
+                }
+
+            } catch (SQLException ex) {
+
+                ex.printStackTrace();
+            }
+        }
+    }
+
+
+    // =========================================================
+    // SALE DETAIL MODEL
+    // =========================================================
+
+    public static class SaleDetail {
+
+        private final String invoiceNumber;
+        private final String productName;
+        private final int quantity;
+        private final double sellingPrice;
+
+        public SaleDetail(
+                String invoiceNumber,
+                String productName,
+                int quantity,
+                double sellingPrice) {
+
+            this.invoiceNumber = invoiceNumber;
+            this.productName = productName;
+            this.quantity = quantity;
+            this.sellingPrice = sellingPrice;
+        }
+
+        public String getInvoiceNumber() {
+            return invoiceNumber;
+        }
+
+        public String getProductName() {
+            return productName;
+        }
+
+        public int getQuantity() {
+            return quantity;
+        }
+
+        public double getSellingPrice() {
+            return sellingPrice;
+        }
+
+        public double getTotal() {
+            return quantity * sellingPrice;
+        }
+    }
 }
 
