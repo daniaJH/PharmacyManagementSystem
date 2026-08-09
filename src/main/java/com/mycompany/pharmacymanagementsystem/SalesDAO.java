@@ -16,53 +16,56 @@ public class SalesDAO {
     // PRODUCTS
     // =========================================================
 
+    
     public ObservableList<SaleProduct> loadProducts() {
 
-        ObservableList<SaleProduct> list =
-                FXCollections.observableArrayList();
+    ObservableList<SaleProduct> list =
+            FXCollections.observableArrayList();
 
-        String sql = """
-                SELECT
-                    p.productcode,
-                    p.tradename,
-                    p.unit,
-                    p.price,
-                    b.batch_no,
-                    b.quantity
-                FROM product p
-                JOIN batch b
-                    ON p.productcode = b.productcode
-                WHERE b.quantity > 0
-                ORDER BY p.tradename
-                """;
+    String sql = """
+            SELECT
+                p.productcode,
+                p.tradename,
+                p.unit,
+                p.price,
+                COALESCE(SUM(b.quantity), 0) AS stock
+            FROM product p
+            LEFT JOIN batch b
+                ON p.productcode = b.productcode
+            GROUP BY
+                p.productcode,
+                p.tradename,
+                p.unit,
+                p.price
+            HAVING COALESCE(SUM(b.quantity), 0) > 0
+            ORDER BY p.tradename
+            """;
 
-        try (
-                Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement ps = conn.prepareStatement(sql);
-                ResultSet rs = ps.executeQuery()
-        ) {
+    try (
+            Connection conn = DatabaseConnection.getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery()
+    ) {
 
-            while (rs.next()) {
+        while (rs.next()) {
 
-                list.add(
-                        new SaleProduct(
-                                rs.getString("productcode"),
-                                rs.getString("tradename"),
-                                rs.getString("unit"),
-                                rs.getDouble("price"),
-                                rs.getString("batch_no"),
-                                rs.getInt("quantity")
-                        )
-                );
-            }
-
-        } catch (SQLException ex) {
-            ex.printStackTrace();
+            list.add(
+                    new SaleProduct(
+                            rs.getString("productcode"),
+                            rs.getString("tradename"),
+                            rs.getString("unit"),
+                            rs.getDouble("price"),
+                            rs.getInt("stock")
+                    )
+            );
         }
 
-        return list;
+    } catch (SQLException ex) {
+        ex.printStackTrace();
     }
 
+    return list;
+}
 
     public ObservableList<SaleProduct> searchProducts(String keyword) {
 
