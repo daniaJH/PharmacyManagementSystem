@@ -28,7 +28,7 @@ private TableView<SalesDAO.SaleDetail> saleDetailsTable;
     private TableColumn<SalesDAO.SaleDetail, String> invoiceNumberColumn;
 
     @FXML
-    private TableColumn<SalesDAO.SaleDetail, String> batchNumberColumn;
+    private TableColumn<SalesDAO.SaleDetail, String> ProductName;
 
     @FXML
     private TableColumn<SalesDAO.SaleDetail, Integer> quantityColumn;
@@ -70,8 +70,8 @@ private TableView<SalesDAO.SaleDetail> saleDetailsTable;
                 new PropertyValueFactory<>("invoiceNumber")
         );
 
-        batchNumberColumn.setCellValueFactory(
-                new PropertyValueFactory<>("batchNumber")
+        ProductName.setCellValueFactory(
+                new PropertyValueFactory<>("productName")
         );
 
         quantityColumn.setCellValueFactory(
