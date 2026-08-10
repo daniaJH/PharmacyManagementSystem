@@ -154,7 +154,7 @@
                      <children>
                         <VBox alignment="CENTER" prefHeight="286.0" prefWidth="523.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <BarChart fx:id="weeklySalesChart" alternativeColumnFillVisible="true" prefHeight="234.0" prefWidth="382.0" stylesheets="@CHART.css" title="Weekly Net Profit">
+                              <BarChart fx:id="weeklySalesChart" alternativeColumnFillVisible="true" prefHeight="234.0" prefWidth="382.0" stylesheets="@CHART.css" title="Weekly Net Sales">
                                 <xAxis>
                                   <CategoryAxis disable="true" prefHeight="16.0" prefWidth="279.0" side="BOTTOM" tickLabelFill="#ff1b1b" visible="false" fx:id="xAxis" />
                                 </xAxis>
