@@ -30,7 +30,7 @@
 
                 <TableColumn fx:id="invoiceNumberColumn" prefWidth="112.79992830753326" text="Invoice Number" />
 
-                <TableColumn fx:id="batchNumberColumn" prefWidth="99.99999237060547" text="Batch Number" />
+                <TableColumn fx:id="ProductName" prefWidth="99.99999237060547" text="Product" />
 
                 <TableColumn fx:id="quantityColumn" prefWidth="61.5999755859375" text="Quantity" />
 
