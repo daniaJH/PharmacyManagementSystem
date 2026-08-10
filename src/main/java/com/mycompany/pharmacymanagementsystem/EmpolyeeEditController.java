@@ -87,7 +87,7 @@ public class EmpolyeeEditController {
 
     // ID لا يمكن تغييره
     idemptxt.setDisable(true);
-
+idemptxt.setText(employee.getEmpId());
     // =========================
     // Personal InformationC
     // =========================
