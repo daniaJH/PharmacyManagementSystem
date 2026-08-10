@@ -186,7 +186,7 @@ private void setupWeeklyProfitChart() {
     weeklySalesChart.getData().clear();
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
-    series.setName("Profit ($)");
+   series.setName("Sales ($)");
 
     Map<String, Double> profitData = dashboardDAO.getWeeklyProfitData();
     String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
