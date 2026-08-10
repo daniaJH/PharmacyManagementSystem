@@ -13,29 +13,18 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane id="AnchorPane" prefHeight="695.0" prefWidth="970.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/21" fx:controller="com.mycompany.pharmacymanagementsystem.SalesController">
+<AnchorPane id="AnchorPane" prefHeight="702.0" prefWidth="962.0" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.SalesController">
    <children>
       <BorderPane prefHeight="694.0" prefWidth="970.0" style="-fx-background-color: #eef6fa;">
-         <top>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="47.0" prefWidth="978.0" style="-fx-background-color: #bbe2f2;" text="SALES" textAlignment="CENTER" textFill="#00218c" BorderPane.alignment="CENTER">
-               <font>
-                  <Font name="Berlin Sans FB Demi Bold" size="25.0" />
-               </font>
-               <effect>
-                  <DropShadow />
-               </effect>
-            </Label>
-         </top>
          <bottom>
-            <AnchorPane prefHeight="647.0" prefWidth="902.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="647.0" prefWidth="959.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label layoutX="50.0" layoutY="13.0" text=" Invoice No :" textFill="#00218c">
+                  <Label layoutX="13.0" layoutY="14.0" text=" Invoice No :" textFill="#00218c">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Label layoutX="54.0" layoutY="51.0" text="Employee :" textFill="#00218c">
+                  <Label layoutX="17.0" layoutY="53.0" text="Employee :" textFill="#00218c">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="15.0" />
                      </font>
@@ -110,9 +99,8 @@
                         <Font name="Berlin Sans FB Demi Bold" size="15.0" />
                      </font>
                   </Label>
-                  <Button fx:id="btnRemoveItem" layoutX="163.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleRemoveItem" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Remove" />
-                  <Button fx:id="btnCheckout" layoutX="388.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleCompleteSale" styleClass="custom-button" stylesheets="@button.css" text="Complete Sale" />
-                  <Button fx:id="btnClearSale" layoutX="609.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleClearSale" prefHeight="34.0" prefWidth="132.0" styleClass="custom-button" stylesheets="@button.css" text="Clear Sale" />
+                  <Button fx:id="btnCheckout" layoutX="412.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleCompleteSale" styleClass="custom-button" stylesheets="@button.css" text="Complete Sale" />
+                  <Button fx:id="btnClearSale" layoutX="697.0" layoutY="561.0" mnemonicParsing="false" onAction="#handleClearSale" prefHeight="34.0" prefWidth="132.0" styleClass="custom-button" stylesheets="@button.css" text="Clear Sale" />
                   <RadioButton fx:id="rbCash" layoutX="671.0" layoutY="434.0" mnemonicParsing="false" selected="true" text="Cash" textFill="#00218c">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="13.0" />
@@ -148,12 +136,12 @@
                         <Font name="Berlin Sans FB Demi Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblInvoiceNo" layoutX="144.0" layoutY="13.0" prefHeight="19.0" prefWidth="110.0" text="Label">
+                  <Label fx:id="lblInvoiceNo" layoutX="107.0" layoutY="12.0" prefHeight="19.0" prefWidth="110.0" text="Label">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="13.0" />
                      </font>
                   </Label>
-                  <Label fx:id="lblEmployeeName" layoutX="144.0" layoutY="52.0" prefHeight="19.0" prefWidth="93.0" text="Label">
+                  <Label fx:id="lblEmployeeName" layoutX="111.0" layoutY="52.0" prefHeight="19.0" prefWidth="93.0" text="Label">
                      <font>
                         <Font name="Berlin Sans FB Demi Bold" size="13.0" />
                      </font>
@@ -191,9 +179,21 @@
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
+                  <Button fx:id="saleshistorybtn" layoutX="158.0" layoutY="561.0" mnemonicParsing="false" onAction="#handlesaleshistorybtn" styleClass="custom-button" stylesheets="@button.css" text="Sales History" />
+                  <ComboBox fx:id="compforowner" layoutX="178.0" layoutY="42.0" prefHeight="38.0" prefWidth="128.0" stylesheets="@combo.css" />
                </children>
             </AnchorPane>
          </bottom>
+         <top>
+            <Label alignment="CENTER" prefHeight="54.0" prefWidth="966.0" style="-fx-background-color: #bbe2f2;" text="SALES" textFill="#00218c" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="Berlin Sans FB Demi Bold" size="24.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </Label>
+         </top>
       </BorderPane>
    </children>
 </AnchorPane>

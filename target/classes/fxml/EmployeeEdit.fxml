@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="494.0" prefWidth="714.0" style="-fx-background-color: #edfaff;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.EmpolyeeEditController">
+   <children>
+      <Label alignment="CENTER" layoutY="-2.0" prefHeight="47.0" prefWidth="714.0" style="-fx-background-color: #bbe2f2;" text="Edit/Add Employee" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="27.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+      <Label layoutX="56.0" layoutY="81.0" text="ID :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="415.0" layoutY="140.0" text="JoB title :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="413.0" layoutY="81.0" text="Hire Date :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="416.0" layoutY="200.0" text="Salary :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="153.0" prefHeight="20.0" prefWidth="126.0" text="Middle Name :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="396.0" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="230.0" prefHeight="20.0" prefWidth="99.0" text="Last Name :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="416.0" layoutY="267.0" text="Shift" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="343.0" text="Building :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="304.0" text="Street :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="113.0" text="First Name :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="190.0" text="Third Name :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="268.0" text="City :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="96.0" layoutY="45.0" prefHeight="29.0" prefWidth="161.0" text="Personal Information" textFill="#335acc">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="472.0" layoutY="44.0" prefHeight="30.0" prefWidth="120.0" text="Job Information" textFill="#335acc">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="savebtnemp" layoutX="575.0" layoutY="431.0" mnemonicParsing="false" onAction="#handlesaveemp" prefHeight="34.0" prefWidth="80.0" styleClass="custom-button" stylesheets="@button.css" text="Save" />
+      <Button fx:id="cancelbtnemp" layoutX="472.0" layoutY="431.0" mnemonicParsing="false" onAction="#handlecancelemp" styleClass="custom-button" stylesheets="@button.css" text="Cancel" />
+      <TextField fx:id="idemptxt" layoutX="192.0" layoutY="78.0" />
+      <TextField fx:id="mnameemptxt" layoutX="192.0" layoutY="150.0" />
+      <TextField fx:id="fnameemptxt" layoutX="192.0" layoutY="110.0" />
+      <TextField fx:id="tnameemptxt" layoutX="192.0" layoutY="187.0" />
+      <TextField fx:id="lnameemptxt" layoutX="192.0" layoutY="227.0" />
+      <TextField fx:id="cityemptxt" layoutX="192.0" layoutY="264.0" />
+      <TextField fx:id="streetemptxt" layoutX="192.0" layoutY="301.0" />
+      <TextField fx:id="buildingemptxt" layoutX="192.0" layoutY="340.0" />
+      <TextField fx:id="hiredateemptx" layoutX="518.0" layoutY="78.0" />
+      <TextField fx:id="jobemptxt" layoutX="518.0" layoutY="137.0" />
+      <TextField fx:id="salaryemptxt" layoutX="518.0" layoutY="200.0" />
+      <ComboBox fx:id="shiftemptxt" layoutX="517.0" layoutY="264.0" prefWidth="150.0" stylesheets="@combo.css" />
+      <Label layoutX="56.0" layoutY="386.0" prefHeight="20.0" prefWidth="80.0" text="Phone :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <TextField fx:id="phoneemptxt" layoutX="192.0" layoutY="383.0" />
+   </children>
+</AnchorPane>

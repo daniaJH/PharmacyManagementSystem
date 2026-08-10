@@ -11,7 +11,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="695.0" prefWidth="926.0" style="-fx-background-color: #edfaff;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.ManufController">
    <children>
-      <Label alignment="CENTER" prefHeight="52.0" prefWidth="966.0" style="-fx-background-color: #bbe2f2;" text="Manufacturing Company" textFill="#00218c">
+      <Label alignment="CENTER" prefHeight="54.0" prefWidth="966.0" style="-fx-background-color: #bbe2f2;" text="Manufacturing Company" textFill="#00218c">
          <font>
             <Font name="Berlin Sans FB Demi Bold" size="24.0" />
          </font>
