@@ -9,8 +9,8 @@
 <AnchorPane id="AnchorPane" prefHeight="528.0" prefWidth="963.0" style="-fx-background-color: #edfaff;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.ReportsController">
    <children>
       <Button fx:id="salesreport" layoutX="196.0" layoutY="143.0" mnemonicParsing="false" onAction="#openreportsale" prefHeight="110.0" prefWidth="219.0" styleClass="custom-button" stylesheets="@button.css" text="Sales Report" />
-      <Button fx:id="instreport" layoutX="553.0" layoutY="310.0" mnemonicParsing="false" onAction="#openreportinst" prefHeight="110.0" prefWidth="219.0" styleClass="custom-button" stylesheets="@button.css" text="Inventory /  Stock Report" />
-      <Button fx:id="profitreport" layoutX="196.0" layoutY="310.0" mnemonicParsing="false" onAction="#openreportprofit" prefHeight="110.0" prefWidth="219.0" styleClass="custom-button" stylesheets="@button.css" text="Profit Report" />
+      <Button fx:id="instreport" layoutX="196.0" layoutY="305.0" mnemonicParsing="false" onAction="#openreportinst" prefHeight="110.0" prefWidth="219.0" styleClass="custom-button" stylesheets="@button.css" text="Inventory /  Stock Report" />
+      <Button fx:id="profitreport" layoutX="544.0" layoutY="305.0" mnemonicParsing="false" onAction="#openreportprofit" prefHeight="110.0" prefWidth="219.0" styleClass="custom-button" stylesheets="@button.css" text="Profit Report" />
       <Button fx:id="purchasesreport" layoutX="544.0" layoutY="143.0" mnemonicParsing="false" onAction="#openreportpurchase" prefHeight="110.0" prefWidth="219.0" styleClass="custom-button" stylesheets="@button.css" text="Purchases Report" />
       <Label alignment="CENTER" prefHeight="54.0" prefWidth="966.0" style="-fx-background-color: #bbe2f2;" text="Reports" textFill="#00218c">
          <font>
@@ -20,5 +20,7 @@
             <DropShadow />
          </effect>
       </Label>
+      <Button fx:id="btnopenjasrepsales" layoutX="209.0" layoutY="253.0" mnemonicParsing="false" onAction="#handleopenjasrepsales" styleClass="custom-button" stylesheets="@button.css" text="Open Jaspersoft Report" />
+      <Button fx:id="btnopenjasfrepinven" layoutX="209.0" layoutY="415.0" mnemonicParsing="false" onAction="#handleopenjasfrepinven" styleClass="custom-button" stylesheets="@button.css" text="Open Jaspersoft Report" />
    </children>
 </AnchorPane>
