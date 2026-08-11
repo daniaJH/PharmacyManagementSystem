@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.pharmacymanagementsystem;
+import java.util.HashMap;
 import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
@@ -180,16 +181,15 @@ public class ReportsController {
 void handleopenjasfrepinven(ActionEvent event) {
 
     try {
-
         JasperReport report = JasperCompileManager.compileReport(
                 getClass().getResourceAsStream(
-                        "/reports/Simple_Blue_٢.jrxml"
+                        "/com/mycompany/pharmacymanagementsystem/reports/InventoryReport.jrxml"
                 )
         );
 
         JasperPrint print = JasperFillManager.fillReport(
                 report,
-                null,
+                new HashMap<>(),
                 DatabaseConnection.getConnection()
         );
 
@@ -197,24 +197,28 @@ void handleopenjasfrepinven(ActionEvent event) {
 
     } catch (Exception e) {
         e.printStackTrace();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Unable to open Inventory Report.");
+        alert.showAndWait();
     }
 }
-
 
 @FXML
 void handleopenjasrepsales(ActionEvent event) {
 
     try {
-
         JasperReport report = JasperCompileManager.compileReport(
                 getClass().getResourceAsStream(
-                        "/reports/Simple_Blue_١.jrxml"
+                        "/com/mycompany/pharmacymanagementsystem/reports/SalesReport.jrxml"
                 )
         );
 
         JasperPrint print = JasperFillManager.fillReport(
                 report,
-                null,
+                new HashMap<>(),
                 DatabaseConnection.getConnection()
         );
 
@@ -222,6 +226,12 @@ void handleopenjasrepsales(ActionEvent event) {
 
     } catch (Exception e) {
         e.printStackTrace();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Unable to open Sales Report.");
+        alert.showAndWait();
     }
 }
     // =========================================================
