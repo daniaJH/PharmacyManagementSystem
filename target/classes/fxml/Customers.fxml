@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="695.0" prefWidth="960.0" style="-fx-background-color: #edfaff;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.CustomerController">
+   <children>
+      <Label layoutX="97.0" layoutY="111.0" text="Search :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="26.0" />
+         </font>
+      </Label>
+      <TableView fx:id="tblcust" layoutY="190.0" prefHeight="298.0" prefWidth="963.0" stylesheets="@table.css">
+        <columns>
+          <TableColumn fx:id="colidcust" prefWidth="75.0" text="Customer Id" />
+          <TableColumn fx:id="Fnamecust" prefWidth="75.0" text="First Name" />
+            <TableColumn fx:id="Mnamecust" prefWidth="75.0" text="Middle Name" />
+            <TableColumn fx:id="TnameCust" prefWidth="75.0" text="Third Name" />
+            <TableColumn fx:id="Lnamecust" prefWidth="75.0" text="Last Name" />
+            <TableColumn fx:id="PhcolCust" prefWidth="75.0" text="Phone" />
+            <TableColumn fx:id="MNcolcust" prefWidth="75.0" text="Medical Notes" />
+            <TableColumn fx:id="allcolcust" prefWidth="75.0" text="allergies" />
+        </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <Button fx:id="btnsearchcust" layoutX="590.0" layoutY="109.0" mnemonicParsing="false" onAction="#handlesearchcustomer" styleClass="custom-button" stylesheets="@button.css" text="Search" />
+      <Button fx:id="btnclearsearch" layoutX="754.0" layoutY="109.0" mnemonicParsing="false" onAction="#handleclearcustomer" prefHeight="34.0" prefWidth="80.0" styleClass="custom-button" stylesheets="@button.css" text="Clear" />
+      <TextField fx:id="txtsearchcust" layoutX="206.0" layoutY="113.0" prefHeight="26.0" prefWidth="285.0" />
+      <Button fx:id="btnaddcust" layoutX="75.0" layoutY="542.0" mnemonicParsing="false" onAction="#handleaddcust" styleClass="custom-button" stylesheets="@button.css" text="Add Customer" />
+      <Button fx:id="btnupdatecust" layoutX="313.0" layoutY="542.0" mnemonicParsing="false" onAction="#handleupdatecust" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Update" />
+      <Button fx:id="btndeletecust" layoutX="553.0" layoutY="542.0" mnemonicParsing="false" onAction="#handledeletecust" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Delete" />
+      <Button fx:id="btnclearcust" layoutX="768.0" layoutY="542.0" mnemonicParsing="false" onAction="#handlecleartbl" prefHeight="34.0" prefWidth="131.0" styleClass="custom-button" stylesheets="@button.css" text="Clear" />
+      <Label alignment="CENTER" layoutX="-2.0" prefHeight="54.0" prefWidth="966.0" style="-fx-background-color: #bbe2f2;" text="Customers" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="24.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>

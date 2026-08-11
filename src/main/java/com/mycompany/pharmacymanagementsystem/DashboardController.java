@@ -159,6 +159,7 @@ private void handlelogout(ActionEvent event) {
 
         Parent root = loader.load();
 
+        
         // الحصول على الـ Stage الحالي
         Stage stage = (Stage) ((Node) event.getSource())
                 .getScene()
@@ -186,7 +187,7 @@ private void setupWeeklyProfitChart() {
     weeklySalesChart.getData().clear();
 
     XYChart.Series<String, Number> series = new XYChart.Series<>();
-    series.setName("Profit ($)");
+   series.setName("Sales ($)");
 
     Map<String, Double> profitData = dashboardDAO.getWeeklyProfitData();
     String[] days = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
@@ -211,8 +212,20 @@ private void setupWeeklyProfitChart() {
 // دالة Home: لا تقومي بإعادة استدعاء setupWeeklyProfitChart() هنا نهائياً
 @FXML
 public void handleHomeButton(ActionEvent event) {
+
     if (mainDashboardContent != null) {
+
+        // إظهار الـ Dashboard
         contentArea.getChildren().setAll(mainDashboardContent);
+
+        // تحديث البطاقات
+        loadCardsData();
+
+        // تحديث الرسم البياني
+        setupWeeklyProfitChart();
+
+        // تحديث التنبيهات
+        setupNotifications();
     }
 }
 

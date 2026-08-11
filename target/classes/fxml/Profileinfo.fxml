@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.effect.InnerShadow?>
+<?import javafx.scene.effect.Light.Distant?>
+<?import javafx.scene.effect.Lighting?>
+<?import javafx.scene.effect.Shadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.QuadCurve?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="621.0" prefWidth="968.0" style="-fx-background-color: #edfaff;" xmlns="http://javafx.com/javafx/26" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mycompany.pharmacymanagementsystem.ProfileController">
+   <children>
+      <Circle fill="#bbe2f2" layoutX="484.0" layoutY="151.0" radius="96.0" stroke="#bbe2f2" strokeType="INSIDE">
+         <effect>
+            <InnerShadow />
+         </effect>
+      </Circle>
+      <Circle fill="#edfaff" layoutX="484.0" layoutY="109.0" radius="32.0" stroke="#edfaff" strokeType="INSIDE">
+         <effect>
+            <Lighting diffuseConstant="1.35">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </Circle>
+      <QuadCurve controlX="-29.999969482421875" controlY="-97.0" endX="43.199951171875" endY="-6.600006103515625" fill="#edfaff" layoutX="514.0" layoutY="206.0" startX="-101.39999389648438" startY="-6.600006103515625" stroke="#edfaff" strokeType="INSIDE">
+         <effect>
+            <Lighting diffuseConstant="1.35">
+               <bumpInput>
+                  <Shadow />
+               </bumpInput>
+               <light>
+                  <Light.Distant />
+               </light>
+            </Lighting>
+         </effect>
+      </QuadCurve>
+      <Label layoutX="59.0" layoutY="278.0" prefHeight="26.0" prefWidth="62.0" text="ID :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="336.0" text="First Name :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="59.0" layoutY="389.0" text="Middle Name :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="441.0" text="Third Name :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="55.0" layoutY="493.0" text="Last Name :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="531.0" layoutY="282.0" text="Phone :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="548.0" layoutY="326.0" text="City :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="534.0" layoutY="379.0" text="Street :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Label layoutX="511.0" layoutY="431.0" text="Building :" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="17.0" />
+         </font>
+      </Label>
+      <Button fx:id="savechangesbtn" layoutX="518.0" layoutY="556.0" mnemonicParsing="false" onAction="#handlesave" prefHeight="34.0" prefWidth="80.0" styleClass="custom-button" stylesheets="@button.css" text="Save" />
+      <TextField fx:id="ID" layoutX="174.0" layoutY="279.0" />
+      <TextField fx:id="Fname" layoutX="174.0" layoutY="333.0" />
+      <TextField fx:id="Mname" layoutX="174.0" layoutY="389.0" />
+      <TextField fx:id="Tname" layoutX="174.0" layoutY="438.0" />
+      <TextField fx:id="Lname" layoutX="174.0" layoutY="490.0" />
+      <TextField fx:id="Phone" layoutX="621.0" layoutY="279.0" />
+      <TextField fx:id="City" layoutX="621.0" layoutY="323.0" />
+      <TextField fx:id="Street" layoutX="621.0" layoutY="376.0" />
+      <TextField fx:id="Building" layoutX="621.0" layoutY="428.0" />
+      <Button fx:id="cancelbtnpro" layoutX="380.0" layoutY="556.0" mnemonicParsing="false" onAction="#handlecancelpro" styleClass="custom-button" stylesheets="@button.css" text="Cancel" />
+      <Label alignment="CENTER" layoutX="1.0" prefHeight="54.0" prefWidth="966.0" style="-fx-background-color: #bbe2f2;" text="My Profile" textFill="#00218c">
+         <font>
+            <Font name="Berlin Sans FB Demi Bold" size="24.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </Label>
+   </children>
+</AnchorPane>

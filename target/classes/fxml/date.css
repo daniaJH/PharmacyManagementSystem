@@ -1,0 +1,93 @@
+/* تنسيق صندوق اختيار التاريخ العام */
+.date-picker {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b0c4de;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+    -fx-padding: 2px;
+}
+
+/* تنسيق خانة النص داخل الـ DatePicker */
+.date-picker .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #333333;
+    -fx-font-size: 13px;
+}
+
+/* تنسيق زر التقويم (الأيقونة الجانبية) */
+.date-picker .arrow-button {
+    -fx-background-color: #e6f2ff;
+    -fx-background-radius: 0 4px 4px 0;
+}
+
+.date-picker .arrow-button:hover {
+    -fx-background-color: #cce0ff;
+}
+
+.date-picker .arrow-button .arrow {
+    -fx-background-color: #0056b3;
+}
+
+/* تنسيق نافذة التقويم المنبثقة */
+.date-picker-popup {
+    -fx-background-color: #ffffff;
+    -fx-border-color: #b0c4de;
+    -fx-border-radius: 5px;
+    -fx-box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* تنسيق رأس التقويم (الشهور والسنوات) */
+.date-picker-popup .month-year-pane {
+    -fx-background-color: #0056b3;
+    -fx-padding: 8px;
+}
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+}
+
+/* تنسيق أزرار التنقل بين الأشهر */
+.date-picker-popup .month-year-pane .button {
+    -fx-background-color: transparent;
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .month-year-pane .button:hover {
+    -fx-background-color: rgba(255, 255, 255, 0.2);
+    -fx-background-radius: 3px;
+}
+
+/* تنسيق أيام الأسبوع (Sunday, Monday...) */
+.date-picker-popup .day-name-cell {
+    -fx-text-fill: #666666;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* تنسيق خلايا الأيام داخل التقويم */
+.date-picker-popup .day-cell {
+    -fx-background-color: #ffffff;
+    -fx-text-fill: #333333;
+    -fx-cell-size: 28px;
+}
+
+/* تأثير المرور بالماوس على الأيام */
+.date-picker-popup .day-cell:hover {
+    -fx-background-color: #e6f2ff;
+    -fx-background-radius: 3px;
+    -fx-cursor: hand;
+}
+
+/* تنسيق اليوم المحدد حالياً */
+.date-picker-popup .day-cell:selected {
+    -fx-background-color: #0056b3;
+    -fx-text-fill: white;
+    -fx-background-radius: 3px;
+}
+
+/* تنسيق أيام الشهور الأخرى (الظاهرة باهتة) */
+.date-picker-popup .day-cell.other-month {
+    -fx-text-fill: #cccccc;
+}

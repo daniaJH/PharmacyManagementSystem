@@ -3,7 +3,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.pharmacymanagementsystem;
-
+import java.util.HashMap;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.view.JasperViewer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +33,11 @@ public class ReportsController {
     private Button salesreport;
 
 
+    @FXML
+    private Button btnopenjasfrepinven;
+
+    @FXML
+    private Button btnopenjasrepsales;
     // =========================================================
     // INVENTORY / STOCK REPORT
     // =========================================================
@@ -167,7 +177,63 @@ public class ReportsController {
         }
     }
 
+@FXML
+void handleopenjasfrepinven(ActionEvent event) {
 
+    try {
+        JasperReport report = JasperCompileManager.compileReport(
+                getClass().getResourceAsStream(
+                        "/com/mycompany/pharmacymanagementsystem/reports/InventoryReport.jrxml"
+                )
+        );
+
+        JasperPrint print = JasperFillManager.fillReport(
+                report,
+                new HashMap<>(),
+                DatabaseConnection.getConnection()
+        );
+
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Unable to open Inventory Report.");
+        alert.showAndWait();
+    }
+}
+
+@FXML
+void handleopenjasrepsales(ActionEvent event) {
+
+    try {
+        JasperReport report = JasperCompileManager.compileReport(
+                getClass().getResourceAsStream(
+                        "/com/mycompany/pharmacymanagementsystem/reports/SalesReport.jrxml"
+                )
+        );
+
+        JasperPrint print = JasperFillManager.fillReport(
+                report,
+                new HashMap<>(),
+                DatabaseConnection.getConnection()
+        );
+
+        JasperViewer.viewReport(print, false);
+
+    } catch (Exception e) {
+        e.printStackTrace();
+
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText("Unable to open Sales Report.");
+        alert.showAndWait();
+    }
+}
     // =========================================================
     // ERROR
     // =========================================================
