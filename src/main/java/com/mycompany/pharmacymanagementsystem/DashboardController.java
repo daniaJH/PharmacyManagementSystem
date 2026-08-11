@@ -159,6 +159,7 @@ private void handlelogout(ActionEvent event) {
 
         Parent root = loader.load();
 
+        
         // الحصول على الـ Stage الحالي
         Stage stage = (Stage) ((Node) event.getSource())
                 .getScene()
