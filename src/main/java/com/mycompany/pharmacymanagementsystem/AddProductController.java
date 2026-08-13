@@ -1,7 +1,7 @@
 package com.mycompany.pharmacymanagementsystem;
 
 import com.mycompany.pharmacymanagementsystem.Manufacturer;
-import com.mycompany.pharmacymanagementsystem.ProductController.Product;
+import com.mycompany.pharmacymanagementsystem.Product;
 import com.mycompany.pharmacymanagementsystem.dao.AddProductDAO;
 import java.net.URL;
 import java.util.ResourceBundle;
