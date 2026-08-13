@@ -69,7 +69,7 @@
             <DropShadow />
          </effect>
       </Button>
-      <Button fx:id="btnClear" layoutX="707.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleClearSearchAction" prefHeight="34.0" prefWidth="81.0" styleClass="custom-button" stylesheets="@button.css" text="Clear">
+      <Button fx:id="btnClearSearch" layoutX="707.0" layoutY="157.0" mnemonicParsing="false" onAction="#handleClearSearchAction" prefHeight="34.0" prefWidth="81.0" styleClass="custom-button" stylesheets="@button.css" text="Clear">
          <effect>
             <DropShadow />
          </effect>
@@ -95,6 +95,6 @@
       <Button fx:id="btnAddProduct" layoutX="91.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleOpenAddProductWindow" styleClass="custom-button" stylesheets="@button.css" text="Add Product" />
       <Button fx:id="btnUpdate" layoutX="317.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleUpdateAction" prefHeight="34.0" prefWidth="120.0" styleClass="custom-button" stylesheets="@button.css" text="Update" />
       <Button fx:id="btnDelete" layoutX="533.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleDeleteAction" prefHeight="34.0" prefWidth="120.0" styleClass="custom-button" stylesheets="@button.css" text="Delete" />
-      <Button fx:id="btnClear" layoutX="742.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleClearTableAction" prefHeight="34.0" prefWidth="120.0" styleClass="custom-button" stylesheets="@button.css" text="clear" />
+      <Button fx:id="btnClearTable" layoutX="742.0" layoutY="587.0" mnemonicParsing="false" onAction="#handleClearTableAction" prefHeight="34.0" prefWidth="120.0" styleClass="custom-button" stylesheets="@button.css" text="clear" />
    </children>
 </AnchorPane>
