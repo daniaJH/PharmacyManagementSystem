@@ -325,31 +325,34 @@ public boolean savePurchase(
         LocalDate date,
         double total,
         ObservableList<NewPurchaseController.PurchaseItem> items) {
+String invoiceSQL = """
+        INSERT INTO purchase_invoice
+        (
+            purch_inv_no,
+            date,
+            totalamount
+        )
+        VALUES (?, ?, ?)
+        """;
 
-    String invoiceSQL = """
-            INSERT INTO purchase_invoice
-            (
-                purch_inv_no,
-                date,
-                totalamount
-            )
-            VALUES (?, ?, ?)
-            """;
+String batchSQL = """
+        INSERT INTO batch
+        (
+            batch_no,
+            productcode,
+            purchase_price,
+            quantity,
+            expire_date,
+            purch_inv_no
+        )
+        VALUES (?, ?, ?, ?, ?, ?)
+        """;
 
-
-    String batchSQL = """
-            INSERT INTO batch
-            (
-                batch_no,
-                productcode,
-                purchase_price,
-                quantity,
-                expire_date,
-                purch_inv_no
-            )
-            VALUES (?, ?, ?, ?, ?, ?)
-            """;
-
+String activateProductSQL = """
+        UPDATE product
+        SET active = TRUE
+        WHERE productcode = ?
+        """;
 
     Connection conn = null;
 
@@ -389,63 +392,101 @@ public boolean savePurchase(
 
 
         // -----------------------------------------------------
-        // INSERT BATCHES
-        // -----------------------------------------------------
+// INSERT BATCHES
+// -----------------------------------------------------
 
-        try (
-                PreparedStatement ps =
-                        conn.prepareStatement(batchSQL)
-        ) {
+try (
+        PreparedStatement ps =
+                conn.prepareStatement(batchSQL)
+) {
 
-            for (
-                    NewPurchaseController.PurchaseItem item
-                    : items
-            ) {
+    for (
+            NewPurchaseController.PurchaseItem item
+            : items
+    ) {
 
-                ps.setString(
-                        1,
-                        item.getBatchNumber()
-                );
+        ps.setString(
+                1,
+                item.getBatchNumber()
+        );
 
-                ps.setString(
-                        2,
-                        item.getProductCode()
-                );
+        ps.setString(
+                2,
+                item.getProductCode()
+        );
 
-                ps.setDouble(
-                        3,
-                        item.getBuyPrice()
-                );
+        ps.setDouble(
+                3,
+                item.getBuyPrice()
+        );
 
-                ps.setInt(
-                        4,
-                        item.getQuantity()
-                );
+        ps.setInt(
+                4,
+                item.getQuantity()
+        );
 
-                ps.setDate(
-                        5,
-                        Date.valueOf(
-                                item.getExpiryDate()
-                        )
-                );
+        ps.setDate(
+                5,
+                Date.valueOf(
+                        item.getExpiryDate()
+                )
+        );
 
-                ps.setString(
-                        6,
-                        purchaseNumber
-                );
+        ps.setString(
+                6,
+                purchaseNumber
+        );
 
-                ps.addBatch();
-            }
+        ps.addBatch();
+    }
 
-            ps.executeBatch();
-        }
-
-
-        conn.commit();
-
-        return true;
+    ps.executeBatch();
+}
 
 
+// -----------------------------------------------------
+// UPDATE ACTIVE BASED ON REAL STOCK
+// -----------------------------------------------------
+
+String updateActiveSQL = """
+        UPDATE product p
+        SET active = (
+            SELECT COALESCE(SUM(b.quantity), 0) > 0
+            FROM batch b
+            WHERE b.productcode = p.productcode
+        )
+        WHERE p.productcode = ?
+        """;
+
+try (
+        PreparedStatement ps =
+                conn.prepareStatement(updateActiveSQL)
+) {
+
+    for (
+            NewPurchaseController.PurchaseItem item
+            : items
+    ) {
+
+        ps.setString(
+                1,
+                item.getProductCode()
+        );
+
+        ps.addBatch();
+    }
+
+    ps.executeBatch();
+}
+
+
+// -----------------------------------------------------
+// COMMIT
+// -----------------------------------------------------
+
+conn.commit();
+
+return true;
     } catch (Exception ex) {
 
         ex.printStackTrace();
