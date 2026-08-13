@@ -1,7 +1,7 @@
 package com.mycompany.pharmacymanagementsystem.dao;
 import java.sql.ResultSet;
 import com.mycompany.pharmacymanagementsystem.DatabaseConnection;
-import com.mycompany.pharmacymanagementsystem.ProductController.Product;
+import com.mycompany.pharmacymanagementsystem.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -23,7 +23,7 @@ private boolean productCodeExists(Connection conn, String code) throws SQLExcept
             return rs.next();
         }
     }
-} public boolean updateProduct(ProductController.Product product, String category) {
+} public boolean updateProduct(Product product, String category) {
     String sqlProduct = "UPDATE public.product SET tradename = ?, unit = ?, minstocklevel = ?, manufcode = ? WHERE productcode = ?";
     String sqlMedicine = "UPDATE public.medicine SET scientificname = ?, activeingredients = ?, dosage = ?, prescriptionrequired = ? WHERE productcode = ?";
     String sqlCare = "UPDATE public.care_product SET producttype = ?, usagemethod = ? WHERE productcode = ?";
