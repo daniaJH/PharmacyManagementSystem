@@ -1,169 +1,557 @@
 package com.mycompany.pharmacymanagementsystem.dao;
 
 import com.mycompany.pharmacymanagementsystem.DatabaseConnection;
-import com.mycompany.pharmacymanagementsystem.ProductController;
-import com.mycompany.pharmacymanagementsystem.ProductController.Product;
+import com.mycompany.pharmacymanagementsystem.Product;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class ProductDAO {
 
-    public ObservableList<ProductController.Product> getFilteredProducts(String categoryFilter, String searchText) {
-        ObservableList<ProductController.Product> productList = FXCollections.observableArrayList();
+    // =========================================================
+    // GET PRODUCTS
+    // =========================================================
+
+    public ObservableList<Product> getFilteredProducts(
+            String categoryFilter,
+            String searchText) {
+
+        ObservableList<Product> productList =
+                FXCollections.observableArrayList();
 
         StringBuilder sql = new StringBuilder(
-            "SELECT p.productcode, p.tradename, p.unit, p.minstocklevel, " +
+            "SELECT " +
+            "p.productcode, " +
+            "p.tradename, " +
+            "p.unit, " +
+            "p.minstocklevel, " +
+            "p.manufcode, " +
+            "p.price, " +
             "man.name AS companyname, " +
-            "m.dosage, m.scientificname, m.activeingredients, m.prescriptionrequired, " +
-            "c.producttype, c.usagemethod " +
+            "m.scientificname, " +
+            "m.activeingredients, " +
+            "m.dosage, " +
+            "m.prescriptionrequired, " +
+            "c.producttype, " +
+            "c.usagemethod " +
+
             "FROM public.product p " +
-            "LEFT JOIN public.manufacturer man ON p.manufcode = man.manufcode " +
-            "LEFT JOIN public.medicine m ON p.productcode = m.productcode " +
-            "LEFT JOIN public.care_product c ON p.productcode = c.productcode " +
-            "WHERE 1=1 "
+
+            "LEFT JOIN public.manufacturer man " +
+            "ON p.manufcode = man.manufcode " +
+
+            "LEFT JOIN public.medicine m " +
+            "ON p.productcode = m.productcode " +
+
+            "LEFT JOIN public.care_product c " +
+            "ON p.productcode = c.productcode " +
+
+            "WHERE p.active = TRUE "
         );
 
+
+        // =====================================================
+        // CATEGORY FILTER
+        // =====================================================
+
         if ("Medicine".equalsIgnoreCase(categoryFilter)) {
-            sql.append(" AND m.productcode IS NOT NULL ");
-        } else if ("Care Product".equalsIgnoreCase(categoryFilter)) {
-            sql.append(" AND c.productcode IS NOT NULL ");
+
+            sql.append(
+                "AND m.productcode IS NOT NULL "
+            );
+
+        } else if ("Care Product".equalsIgnoreCase(categoryFilter)
+                || "CareProduct".equalsIgnoreCase(categoryFilter)) {
+
+            sql.append(
+                "AND c.productcode IS NOT NULL "
+            );
         }
 
-        if (searchText != null && !searchText.trim().isEmpty()) {
-            sql.append(" AND (p.productcode ILIKE ? OR p.tradename ILIKE ?) ");
+
+        // =====================================================
+        // SEARCH
+        // =====================================================
+
+        if (searchText != null
+                && !searchText.trim().isEmpty()) {
+
+            sql.append(
+                "AND (p.productcode ILIKE ? " +
+                "OR p.tradename ILIKE ?) "
+            );
         }
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql.toString())) {
 
-            if (searchText != null && !searchText.trim().isEmpty()) {
-                String searchPattern = "%" + searchText.trim() + "%";
-                stmt.setString(1, searchPattern);
-                stmt.setString(2, searchPattern);
+        sql.append(
+            "ORDER BY p.productcode"
+        );
+
+
+        // =====================================================
+        // DATABASE
+        // =====================================================
+
+        try (Connection conn =
+                DatabaseConnection.getConnection();
+
+             PreparedStatement stmt =
+                conn.prepareStatement(sql.toString())) {
+
+
+            // -------------------------------------------------
+            // Search parameters
+            // -------------------------------------------------
+
+            if (searchText != null
+                    && !searchText.trim().isEmpty()) {
+
+                String pattern =
+                    "%" + searchText.trim() + "%";
+
+                stmt.setString(1, pattern);
+                stmt.setString(2, pattern);
             }
 
-            ResultSet rs = stmt.executeQuery();
 
-            while (rs.next()) {
-                String code = rs.getString("productcode");
-                String tName = rs.getString("tradename");
-                String unit = rs.getString("unit");
-                int minStock = rs.getInt("minstocklevel");
-                String company = rs.getString("companyname");
+            // -------------------------------------------------
+            // Execute
+            // -------------------------------------------------
 
-                String dosage = rs.getString("dosage");
-                String sName = rs.getString("scientificname");
+            try (ResultSet rs =
+                    stmt.executeQuery()) {
 
-                String type = rs.getString("producttype");
-                String usage = rs.getString("usagemethod");
-                
-                String activeIng = rs.getString("activeingredients");
-                boolean prescription = rs.getBoolean("prescriptionrequired");
 
-                // إنشاء كائن المنتج مرة واحدة فقط وتعبئة حقوله
-                Product product = new Product(
-                    code, tName, unit, minStock, 
-                    company != null ? company : "", 
-                    dosage != null ? dosage : "", 
-                    sName != null ? sName : "", 
-                    type != null ? type : "", 
-                    usage != null ? usage : ""
-                );
-                
-                product.setActiveIngredients(activeIng != null ? activeIng : "");
-                product.setPrescriptionRequired(prescription);
-                
-                productList.add(product);
+                while (rs.next()) {
+
+                    Product product =
+                            new Product();
+
+
+                    product.setCode(
+                        rs.getString("productcode")
+                    );
+
+                    product.setTradeName(
+                        rs.getString("tradename")
+                    );
+
+                    product.setUnit(
+                        rs.getString("unit")
+                    );
+
+                    product.setMinStock(
+                        rs.getInt("minstocklevel")
+                    );
+
+                    product.setCompany(
+                        getStringOrEmpty(
+                            rs,
+                            "companyname"
+                        )
+                    );
+
+                    product.setPrice(
+                        rs.getDouble("price")
+                    );
+
+                    product.setDosage(
+                        getStringOrEmpty(
+                            rs,
+                            "dosage"
+                        )
+                    );
+
+                    product.setScientificName(
+                        getStringOrEmpty(
+                            rs,
+                            "scientificname"
+                        )
+                    );
+
+                    product.setActiveIngredients(
+                        getStringOrEmpty(
+                            rs,
+                            "activeingredients"
+                        )
+                    );
+
+                    product.setPrescriptionRequired(
+                        rs.getBoolean(
+                            "prescriptionrequired"
+                        )
+                    );
+
+                    product.setProductType(
+                        getStringOrEmpty(
+                            rs,
+                            "producttype"
+                        )
+                    );
+
+                    product.setUsageMethod(
+                        getStringOrEmpty(
+                            rs,
+                            "usagemethod"
+                        )
+                    );
+
+
+                    productList.add(product);
+                }
             }
+
 
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
+
 
         return productList;
-    } 
-    public boolean deleteProduct(String productCode) {
-    // الحذف مباشرة من الجدول الرئيسي، والـ CASCADE في الداتابيز سيتكفل بالأبناء تلقائياً
-    String sql = "DELETE FROM public.product WHERE productcode = ?";
-
-    try (Connection conn = DatabaseConnection.getConnection();
-         PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-        pstmt.setString(1, productCode);
-        int rowsAffected = pstmt.executeUpdate();
-        
-        // إذا تم حذف صف واحد على الأقل، العملية نجحت
-        return rowsAffected > 0;
-
-    } catch (SQLException e) {
-        e.printStackTrace();
-        return false;
     }
-}
 
-    public boolean addProduct(ProductController.Product product, String category) {
-        String sqlProduct = "INSERT INTO public.product (productcode, tradename, unit, minstocklevel, manufcode) VALUES (?, ?, ?, ?, ?)";
-        String sqlMedicine = "INSERT INTO public.medicine (productcode, scientificname, activeingredients, dosage, prescriptionrequired) VALUES (?, ?, ?, ?, ?)";
-        String sqlCare = "INSERT INTO public.care_product (productcode, producttype, usagemethod) VALUES (?, ?, ?)";
 
-        Connection conn = null;
-        try {
-            conn = DatabaseConnection.getConnection();
-            conn.setAutoCommit(false);
+    // =========================================================
+    // DELETE / DEACTIVATE PRODUCT
+    // =========================================================
+    //
+    // We do NOT physically delete the product.
+    //
+    // Product can be deactivated ONLY when current stock = 0.
+    //
+    // All historical records remain:
+    //
+    // batch
+    // stock_count_detail
+    // purchase_invoice
+    // sale_detail
+    // sales_invoice
+    //
+    // =========================================================
 
-            try (PreparedStatement pstmtProduct = conn.prepareStatement(sqlProduct)) {
-                pstmtProduct.setString(1, product.getCode());
-                pstmtProduct.setString(2, product.getTradeName());
-                pstmtProduct.setString(3, product.getUnit());
-                pstmtProduct.setInt(4, product.getMinStock());
-                pstmtProduct.setString(5, product.getCompany());
-                pstmtProduct.executeUpdate();
+    public boolean deleteProduct(String productCode) {
+
+        String stockSql =
+            "SELECT COALESCE(SUM(quantity), 0) " +
+            "FROM public.batch " +
+            "WHERE productcode = ?";
+
+
+        String deactivateSql =
+            "UPDATE public.product " +
+            "SET active = FALSE " +
+            "WHERE productcode = ? " +
+            "AND active = TRUE";
+
+
+        try (Connection conn =
+                DatabaseConnection.getConnection()) {
+
+
+            // =================================================
+            // 1. CHECK CURRENT STOCK
+            // =================================================
+
+            try (PreparedStatement stmt =
+                    conn.prepareStatement(stockSql)) {
+
+
+                stmt.setString(
+                    1,
+                    productCode
+                );
+
+
+                try (ResultSet rs =
+                        stmt.executeQuery()) {
+
+
+                    if (rs.next()) {
+
+                        int totalStock =
+                                rs.getInt(1);
+
+
+                        // -------------------------------------
+                        // Product still has stock
+                        // -------------------------------------
+
+                        if (totalStock > 0) {
+
+                            return false;
+                        }
+                    }
+                }
             }
 
-            if ("Medicine".equalsIgnoreCase(category)) {
-                try (PreparedStatement pstmtMed = conn.prepareStatement(sqlMedicine)) {
-                    pstmtMed.setString(1, product.getCode());
-                    pstmtMed.setString(2, product.getScientificName());
-                    pstmtMed.setString(3, product.getActiveIngredients());
-                    pstmtMed.setString(4, product.getDosage());
-                    pstmtMed.setBoolean(5, product.isPrescriptionRequired());
-                    pstmtMed.executeUpdate();
-                }
-            } else if ("CareProduct".equalsIgnoreCase(category) || "Care Product".equalsIgnoreCase(category)) {
-                try (PreparedStatement pstmtCare = conn.prepareStatement(sqlCare)) {
-                    pstmtCare.setString(1, product.getCode());
-                    pstmtCare.setString(2, product.getCareType());
-                    pstmtCare.setString(3, product.getUsageMethod());
-                    pstmtCare.executeUpdate();
-                }
+
+            // =================================================
+            // 2. DEACTIVATE PRODUCT
+            // =================================================
+
+            try (PreparedStatement stmt =
+                    conn.prepareStatement(deactivateSql)) {
+
+
+                stmt.setString(
+                    1,
+                    productCode
+                );
+
+
+                int rowsAffected =
+                        stmt.executeUpdate();
+
+
+                return rowsAffected > 0;
             }
 
-            conn.commit();
-            return true;
 
         } catch (SQLException e) {
-            if (conn != null) {
-                try {
-                    conn.rollback();
-                } catch (SQLException ex) {
-                    ex.printStackTrace();
+
+            e.printStackTrace();
+
+            return false;
+        }
+    }
+
+
+    // =========================================================
+    // ADD PRODUCT
+    // =========================================================
+
+    public boolean addProduct(
+            Product product,
+            String category) {
+
+
+        String sqlProduct =
+            "INSERT INTO public.product " +
+            "(productcode, tradename, unit, " +
+            "minstocklevel, manufcode, price, active) " +
+            "VALUES (?, ?, ?, ?, ?, ?, TRUE)";
+
+
+        String sqlMedicine =
+            "INSERT INTO public.medicine " +
+            "(productcode, scientificname, " +
+            "activeingredients, dosage, " +
+            "prescriptionrequired) " +
+            "VALUES (?, ?, ?, ?, ?)";
+
+
+        String sqlCare =
+            "INSERT INTO public.care_product " +
+            "(productcode, producttype, usagemethod) " +
+            "VALUES (?, ?, ?)";
+
+
+        Connection conn = null;
+
+
+        try {
+
+            conn =
+                DatabaseConnection.getConnection();
+
+            conn.setAutoCommit(false);
+
+
+            // =================================================
+            // PRODUCT
+            // =================================================
+
+            try (PreparedStatement stmt =
+                    conn.prepareStatement(sqlProduct)) {
+
+
+                stmt.setString(
+                    1,
+                    product.getCode()
+                );
+
+                stmt.setString(
+                    2,
+                    product.getTradeName()
+                );
+
+                stmt.setString(
+                    3,
+                    product.getUnit()
+                );
+
+                stmt.setInt(
+                    4,
+                    product.getMinStock()
+                );
+
+                stmt.setString(
+                    5,
+                    product.getCompany()
+                );
+
+                stmt.setDouble(
+                    6,
+                    product.getPrice()
+                );
+
+
+                stmt.executeUpdate();
+            }
+
+
+            // =================================================
+            // MEDICINE
+            // =================================================
+
+            if ("Medicine".equalsIgnoreCase(category)) {
+
+                try (PreparedStatement stmt =
+                        conn.prepareStatement(sqlMedicine)) {
+
+
+                    stmt.setString(
+                        1,
+                        product.getCode()
+                    );
+
+                    stmt.setString(
+                        2,
+                        product.getScientificName()
+                    );
+
+                    stmt.setString(
+                        3,
+                        product.getActiveIngredients()
+                    );
+
+                    stmt.setString(
+                        4,
+                        product.getDosage()
+                    );
+
+                    stmt.setBoolean(
+                        5,
+                        product.isPrescriptionRequired()
+                    );
+
+
+                    stmt.executeUpdate();
                 }
             }
-            e.printStackTrace();
-            return false;
-        } finally {
+
+
+            // =================================================
+            // CARE PRODUCT
+            // =================================================
+
+            else if (
+                "Care Product".equalsIgnoreCase(category)
+                ||
+                "CareProduct".equalsIgnoreCase(category)
+            ) {
+
+
+                try (PreparedStatement stmt =
+                        conn.prepareStatement(sqlCare)) {
+
+
+                    stmt.setString(
+                        1,
+                        product.getCode()
+                    );
+
+                    stmt.setString(
+                        2,
+                        product.getProductType()
+                    );
+
+                    stmt.setString(
+                        3,
+                        product.getUsageMethod()
+                    );
+
+
+                    stmt.executeUpdate();
+                }
+            }
+
+
+            // =================================================
+            // COMMIT
+            // =================================================
+
+            conn.commit();
+
+            return true;
+
+
+        } catch (SQLException e) {
+
+
+            // =================================================
+            // ROLLBACK
+            // =================================================
+
             if (conn != null) {
+
                 try {
+
+                    conn.rollback();
+
+                } catch (SQLException rollbackException) {
+
+                    rollbackException.printStackTrace();
+                }
+            }
+
+
+            e.printStackTrace();
+
+            return false;
+
+
+        } finally {
+
+
+            if (conn != null) {
+
+                try {
+
                     conn.setAutoCommit(true);
                     conn.close();
+
                 } catch (SQLException e) {
+
                     e.printStackTrace();
                 }
             }
         }
+    }
+
+
+    // =========================================================
+    // HELPER
+    // =========================================================
+
+    private String getStringOrEmpty(
+            ResultSet rs,
+            String columnName)
+            throws SQLException {
+
+
+        String value =
+                rs.getString(columnName);
+
+
+        return value != null
+                ? value
+                : "";
     }
 }
